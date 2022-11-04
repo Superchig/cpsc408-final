@@ -1,20 +1,23 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import ky from 'ky';
 
 	export let data: PageData;
 
 	let newAccount: Account = {
-		id: undefined,
 		name: undefined
 	};
 
 	type Account = {
-		id: number | undefined;
 		name: string | undefined;
 	};
 
-	const onCreateClick = (event: Event) => {
+	const onCreateClick = async (event: Event) => {
 		alert('Creating new account: ' + newAccount.name);
+
+		await ky.post('/accounts/new', { json: newAccount });
+
+		location.reload();
 	};
 </script>
 
@@ -26,7 +29,7 @@
 			<td>ID</td>
 			<td>Name</td>
 			<!-- Invisible button column: -->
-			<td></td>
+			<td />
 		</tr>
 	</thead>
 	<tbody>

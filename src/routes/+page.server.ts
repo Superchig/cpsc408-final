@@ -7,8 +7,6 @@ export const load: PageServerLoad = async ({ params }) => {
 
     const results = db.prepare('SELECT id, name FROM account;').all();
 
-    console.log(results);
-
     return structuredClone({
         accounts: results,
     });
