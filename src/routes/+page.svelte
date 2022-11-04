@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	// import '../app.css';
 	import ky from 'ky';
 
 	export let data: PageData;
