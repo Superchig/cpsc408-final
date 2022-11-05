@@ -16,6 +16,14 @@
 
 		location.reload();
 	};
+
+	const onDeleteClick = async (event: Event, account: Account) => {
+		console.log('account.id: ' + account.id);
+
+		await ky.delete(`/accounts/${account.id}/delete`);
+
+		location.reload();
+	};
 </script>
 
 <div class="m-4 mx-auto w-max">
@@ -41,6 +49,7 @@
 					<td class="border border-y-4 px-6 py-3">{account.name}</td>
 					<td class="px-2">
 						<button
+						on:click={(event) => onDeleteClick(event, account)}
 							class="bg-red-500 text-white text-sm shadow-md rounded-lg p-3 px-6 pt-2 w-full hover:bg-red-400"
 						>
 							Delete
