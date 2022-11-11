@@ -3,6 +3,8 @@
 	import type { Account } from '$lib/account';
 	import '../app.css';
 	import ky from 'ky';
+	import Fa from 'svelte-fa';
+	import { faTrash, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 	export let data: PageData;
 
@@ -46,20 +48,35 @@
 			{#each data.accounts as account}
 				<tr>
 					<td class="border border-y-4 px-6 py-3">{account.id}</td>
-					<td class="border border-y-4 px-6 py-3">{account.name}</td>
-					<td class="px-2">
-						<button
-						on:click={(event) => onDeleteClick(event, account)}
-							class="bg-red-500 text-white text-sm shadow-md rounded-lg p-3 px-6 pt-2 w-full hover:bg-red-400"
-						>
-							Delete
-						</button>
+					<td class="border border-y-4 pl-4 pr-1 py-3 group">
+						<div class="flow-root">
+							<p class="float-left">
+								{account.name}
+							</p>
+							<div class="float-right flex">
+								<span
+									on:click={(event) => onDeleteClick(event, account)}
+									on:keypress={(event) => onDeleteClick(event, account)}
+									class="invisible p-1 text-red-600 group-hover:visible hover:text-red-400 hover:cursor-pointer"
+								>
+									<Fa icon={faTrash} />
+								</span>
+								<span
+									on:click={(event) => alert('Test!')}
+									on:keypress={(event) => alert('Test!')}
+									class="invisible p-1 text-green-600 group-hover:visible hover:text-green-400 hover:cursor-pointer"
+								>
+									<Fa icon={faCirclePlus} />
+								</span>
+							</div>
+						</div>
 					</td>
+					<td class="px-2" />
 				</tr>
 			{/each}
 			<tr>
 				<td class="border border-y-4 px-6 py-3">TBD</td>
-				<td class="border border-y-4 px-6 py-3"
+				<td class="border border-y-4 px-4 py-3"
 					><input
 						type="text"
 						bind:value={newAccount.name}
