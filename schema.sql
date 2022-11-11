@@ -39,3 +39,11 @@ BEGIN
     INSERT INTO account_parent_child (parent_id, child_id, depth)
     VALUES (NEW.id, NEW.id, 0);
 end;
+
+CREATE TRIGGER IF NOT EXISTS account_delete_zero_depth
+    BEFORE DELETE
+    ON account
+BEGIN
+    DELETE FROM account_parent_child
+    WHERE parent_id = OLD.id AND child_id = OLD.id;
+end;
