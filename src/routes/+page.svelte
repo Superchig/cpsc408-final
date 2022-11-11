@@ -39,9 +39,7 @@
 	let error: any | null = null;
 </script>
 
-<Modals>
-	<div slot="backdrop" class="backdrop" on:click={closeModal} on:keypress={closeModal}></div>
-</Modals>
+<Modals />
 
 <div class="m-4 mx-auto w-max">
 	<div class="bg-red-600 text-white p-3 m-1 rounded-md empty:hidden">
@@ -84,7 +82,8 @@
 									<Fa icon={faTrash} />
 								</span>
 								<span
-									on:click={(event) => openModal(TestModal, { title: 'Alert', message: 'This is an alert.' })}
+									on:click={(event) =>
+										openModal(TestModal, { title: 'Alert', message: 'This is an alert.' })}
 									on:keypress={(event) => alert('Test!')}
 									class="invisible p-1 text-green-600 group-hover:visible hover:text-green-400 hover:cursor-pointer"
 								>
