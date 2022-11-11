@@ -5,8 +5,8 @@
 	import ky from 'ky';
 	import Fa from 'svelte-fa';
 	import { faTrash, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-	import { Modals, closeModal, openModal } from 'svelte-modals';
-	import TestModal from './TestModal.svelte';
+	import { Modals, openModal } from 'svelte-modals';
+	import CreateChildAccountModal from './CreateChildAccountModal.svelte';
 
 	export let data: PageData;
 
@@ -83,7 +83,7 @@
 								</span>
 								<span
 									on:click={(event) =>
-										openModal(TestModal, { title: 'Alert', message: 'This is an alert.' })}
+										openModal(CreateChildAccountModal, { title: 'Alert', message: 'This is an alert.' })}
 									on:keypress={(event) => alert('Test!')}
 									class="invisible p-1 text-green-600 group-hover:visible hover:text-green-400 hover:cursor-pointer"
 								>
