@@ -41,6 +41,8 @@
 		"@fortawesome/free-solid-svg-icons": "^6.2.0",
 		"better-sqlite3": "^7.6.2",
 		"ky": "^0.32.2",
-		"svelte-fa": "^3.0.3"
+		"svelte-fa": "^3.0.3",
+		"svelte-focus-on": "^0.1.4",
+		"svelte-modals": "^1.2.0"
 	}
 }
