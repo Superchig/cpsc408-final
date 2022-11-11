@@ -83,8 +83,9 @@
 								</span>
 								<span
 									on:click={(event) =>
-										openModal(CreateChildAccountModal, { title: 'Alert', message: 'This is an alert.' })}
-									on:keypress={(event) => alert('Test!')}
+										openModal(CreateChildAccountModal, structuredClone({ parentAccount: account }))}
+									on:keypress={(event) =>
+										openModal(CreateChildAccountModal, structuredClone({ parentAccount: account }))}
 									class="invisible p-1 text-green-600 group-hover:visible hover:text-green-400 hover:cursor-pointer"
 								>
 									<Fa icon={faCirclePlus} />

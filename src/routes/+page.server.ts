@@ -1,4 +1,5 @@
 import type { PageServerLoad } from './$types';
+import type { Actions } from './$types';
 import { getDB } from '$lib/server/db';
 import type { Account } from '$lib/account';
 
@@ -11,3 +12,12 @@ export const load: PageServerLoad = async ({ params }) => {
         accounts: results,
     });
 }
+
+export const actions: Actions = {
+    default: async (event) => {
+        console.log(event);
+    },
+    childaccount: async (event) => {
+        console.log(event);
+    }
+};
