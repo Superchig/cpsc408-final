@@ -17,4 +17,6 @@ if (args[0] == 'create') {
   db.prepare("INSERT INTO account(name) VALUES ('expenses'), ('revenue');").run();
 
   console.log('Data inserted.');
+} else {
+  console.log('Usage: npm run db insert/create');
 }

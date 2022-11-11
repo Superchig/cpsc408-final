@@ -5,7 +5,17 @@ CREATE TABLE IF NOT EXISTS account (
   name TEXT
 ) STRICT;
 
-CREATE TABLE IF NOT EXISTS money_transaction (
+-- https://dirtsimple.org/2010/11/simplest-way-to-do-tree-based-queries.html
+CREATE TABLE IF NOT EXISTS account_parent_child (
+  parent_id INTEGER,
+  child_id INTEGER,
+  depth INTEGER,
+  PRIMARY KEY (parent_id, child_id),
+  FOREIGN KEY (parent_id) REFERENCES account(id),
+  FOREIGN KEY (child_id) REFERENCES account(id)
+) STRICT;
+
+CREATE TABLE IF NOT EXISTS financial_transaction (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   date TEXT,
   priority INTEGER
@@ -18,6 +28,14 @@ CREATE TABLE IF NOT EXISTS debit_credit (
   transaction_id INTEGER,
   account_id INTEGER,
   priority INTEGER,
-  FOREIGN KEY (transaction_id) REFERENCES money_transaction(id),
+  FOREIGN KEY (transaction_id) REFERENCES financial_transaction(id),
   FOREIGN KEY (account_id) REFERENCES account(id)
 ) STRICT;
+
+CREATE TRIGGER IF NOT EXISTS account_insert_zero_depth
+    AFTER INSERT
+    ON account
+BEGIN
+    INSERT INTO account_parent_child (parent_id, child_id, depth)
+    VALUES (NEW.id, NEW.id, 0);
+end;
