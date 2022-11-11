@@ -22,13 +22,29 @@
 	const onDeleteClick = async (event: Event, account: Account) => {
 		console.log('account.id: ' + account.id);
 
-		await ky.delete(`/accounts/${account.id}/delete`);
-
-		location.reload();
+		try {
+			await ky.delete(`/accounts/${account.id}/delete`);
+			location.reload();
+		} catch (e) {
+			error = e;
+		} finally {
+			console.log('This is the finally block!');
+		}
 	};
+
+	// Error display
+
+	let error: any | null = null;
 </script>
 
 <div class="m-4 mx-auto w-max">
+	<div class="bg-red-600 text-white p-3 m-1 rounded-md empty:hidden">
+		{#if error != null}
+			<h1 class="text-2xl mb-3">Error</h1>
+			{error.toString()}
+		{/if}
+	</div>
+
 	<h1 class="text-2xl mb-3">Accounts</h1>
 
 	<table class="table-auto bg-white">
