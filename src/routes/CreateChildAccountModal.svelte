@@ -22,13 +22,13 @@
 		use:focusOn
 	>
 		<div class="contents">
-			<form>
+			<form method="POST" action="?/childaccount">
 				<h2 class="text-2xl mb-2">Create child account</h2>
 
 				<hr class="mb-3" />
 
 				<!-- FIXME(Chris): Write functions to obtain the same route in multiple places -->
-				<div method="POST" class="grid grid-cols-2 gap-2">
+				<div class="grid grid-cols-2 gap-2">
 					<input
 						type="text"
 						name="parent_account_id"
