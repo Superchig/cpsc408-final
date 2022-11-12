@@ -28,9 +28,6 @@ export const actions: Actions = {
 		const parentAccountId = data.get('parent_account_id');
 		const newAccountName = data.get('new_account_name');
 
-		console.log('parentAccountId: ' + parentAccountId);
-		console.log('newAccountName: ' + newAccountName);
-
 		// FIXME(Chris): Use some kind of transaction
 
 		const db = getDB();
