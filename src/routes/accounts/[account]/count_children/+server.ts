@@ -2,19 +2,19 @@ import type { RequestHandler } from './$types';
 import { getDB } from '$lib/server/db';
 
 export const GET: RequestHandler = async (event) => {
-	const db = getDB();
+  const db = getDB();
 
-	const accountId = Number(event.params.account);
+  const accountId = Number(event.params.account);
 
-	// NOTE(Chris): We subtract 1 from COUNT(*) because of the zero-depth parent-child
-	// relationship from an account to itself.
-	const { count_children } = db
-		.prepare(
-			`SELECT COUNT(*) - 1 AS count_children
+  // NOTE(Chris): We subtract 1 from COUNT(*) because of the zero-depth parent-child
+  // relationship from an account to itself.
+  const { count_children } = db
+    .prepare(
+      `SELECT COUNT(*) - 1 AS count_children
              FROM account_closure
              WHERE ancestor_id = ?`
-		)
-		.get(accountId);
+    )
+    .get(accountId);
 
-	return new Response(count_children);
+  return new Response(count_children);
 };
