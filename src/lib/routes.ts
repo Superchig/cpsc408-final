@@ -6,6 +6,6 @@ export function countChildrenPath(accountId: number) {
     return `/accounts/${accountId}/count_children`;
 }
 
-export function childAccount() {
-    return `?/childaccount`;
+export function createChildAccount() {
+    return `?/create_child_account`;
 }

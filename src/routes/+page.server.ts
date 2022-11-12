@@ -24,8 +24,7 @@ export const load: PageServerLoad = async ({ params }) => {
 };
 
 export const actions: Actions = {
-	// FIXME(Chris): Rename this to use snake_case
-	childaccount: async (event) => {
+	create_child_account: async (event) => {
 		const data = await event.request.formData();
 		const parentAccountId = data.get('parent_account_id');
 		const newAccountName = data.get('new_account_name');
