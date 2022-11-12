@@ -46,7 +46,7 @@
 		<hr class="mb-2" />
 
 		<div class="actions flow-root">
-			<Button on:click={closeModal} color={ButtonColor.Red} class="p-2 float-left">
+			<Button on:click={closeModal} color={ButtonColor.SwapBlue} class="p-2 float-left">
 				Cancel
 			</Button>
 			<Button type="submit" color={ButtonColor.Blue} class="p-2 float-right">

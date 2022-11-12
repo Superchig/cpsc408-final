@@ -9,6 +9,7 @@
 	import CreateChildAccountModal from './CreateChildAccountModal.svelte';
 	import TextInput from './TextInput.svelte';
 	import Button, { ButtonColor } from './Button.svelte';
+	import DeleteAccountModal from './DeleteAccountModal.svelte';
 
 	export let data: PageData;
 
@@ -24,14 +25,16 @@
 	};
 
 	const onDeleteClick = async (event: Event, account: Account) => {
-		try {
-			await ky.delete(`/accounts/${account.id}/delete`);
-			location.reload();
-		} catch (e) {
-			error = e;
-		} finally {
-			console.log('This is the finally block!');
-		}
+		openModal(DeleteAccountModal, structuredClone({ account }));
+
+		// try {
+		// 	await ky.delete(`/accounts/${account.id}/delete`);
+		// 	location.reload();
+		// } catch (e) {
+		// 	error = e;
+		// } finally {
+		// 	console.log('This is the finally block!');
+		// }
 	};
 
 	// Error display
