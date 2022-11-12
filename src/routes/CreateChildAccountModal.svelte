@@ -52,11 +52,12 @@
 			>
 				Cancel
 			</button>
-			<input
+			<button
 				type="submit"
-				value="Submit"
 				class="bg-blue-500 text-white p-2 rounded-lg shadow-md float-right hover:bg-blue-400 hover:cursor-pointer"
-			/>
+			>
+				Submit
+			</button>
 		</div>
 	</form>
 </BaseModal>
