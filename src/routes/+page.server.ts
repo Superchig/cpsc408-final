@@ -10,11 +10,11 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	const results: Account[] = db
 		.prepare(
-			`SELECT child_id AS id, GROUP_CONCAT(account.name, ':') AS full_name
-             FROM account_parent_child
-                 INNER JOIN account ON account_parent_child.parent_id = account.id
-             GROUP BY child_id
-             ORDER BY parent_id, full_name;`
+			`SELECT descendant_id AS id, GROUP_CONCAT(account.name, ':') AS full_name
+             FROM account_closure
+                 INNER JOIN account ON account_closure.ancestor_id = account.id
+             GROUP BY descendant_id
+             ORDER BY ancestor_id, full_name;`
 		)
 		.all();
 
@@ -37,17 +37,17 @@ export const actions: Actions = {
 				.run(newAccountName);
 
 			// NOTE(Chris): By using a cross join of the parent and the child, we will
-			// place all of our desired ancestor accounts' IDs into p.parent_id. We
+			// place all of our desired ancestor accounts' IDs into p.ancestor_id. We
 			// will also place all of the IDs of the descendants of our new account
-			// (including the account's own ID) into c.child_id.
+			// (including the account's own ID) into c.descendant_id.
 			// In this specific case, our freshly-made account will have no descendants
 			// (besides itself), so its own ID will be its only descendant.
 			db.prepare(
-				`INSERT INTO account_parent_child(parent_id, child_id, depth)
-             SELECT p.parent_id, c.child_id, p.depth + c.depth + 1
-             FROM account_parent_child p
-                 CROSS JOIN account_parent_child c
-             WHERE p.child_id = ? AND c.parent_id = ?`
+				`INSERT INTO account_closure(ancestor_id, descendant_id, depth)
+             SELECT p.ancestor_id, c.descendant_id, p.depth + c.depth + 1
+             FROM account_closure p
+                 CROSS JOIN account_closure c
+             WHERE p.descendant_id = ? AND c.ancestor_id = ?`
 			).run(parentAccountId, lastInsertRowid);
 		})();
 	},
@@ -62,25 +62,25 @@ export const actions: Actions = {
 			// https://stackoverflow.com/questions/4967135/deleting-rows-from-sqlite-table-when-no-match-exists-in-another-table
 			// The RETURNING clause exists in SQLite version 3.35.0 (2021-03-12) and later
 			// https://www.sqlite.org/lang_returning.html
-			const results: { child_id: number }[] = db
+			const results: { descendant_id: number }[] = db
 				.prepare(
-					`DELETE FROM account_parent_child
+					`DELETE FROM account_closure
 			 		 WHERE ROWID IN
 			 		 (SELECT link.ROWID
-			 		 FROM account_parent_child p
-			 		     CROSS JOIN account_parent_child c
-			 		     CROSS JOIN account_parent_child link
-			 		     CROSS JOIN account_parent_child to_delete
-			 		 WHERE p.parent_id = link.parent_id AND c.child_id = link.child_id
-			 		     AND p.child_id = to_delete.parent_id AND c.parent_id = to_delete.child_id
-			 		     AND (to_delete.parent_id = $account_id OR to_delete.child_id = $account_id))
-			 		 RETURNING child_id;`
+			 		 FROM account_closure p
+			 		     CROSS JOIN account_closure c
+			 		     CROSS JOIN account_closure link
+			 		     CROSS JOIN account_closure to_delete
+			 		 WHERE p.ancestor_id = link.ancestor_id AND c.descendant_id = link.descendant_id
+			 		     AND p.descendant_id = to_delete.ancestor_id AND c.ancestor_id = to_delete.descendant_id
+			 		     AND (to_delete.ancestor_id = $account_id OR to_delete.descendant_id = $account_id))
+			 		 RETURNING descendant_id;`
 				)
 				.all({
 					account_id: accountId
 				});
 
-			const idsToDeleteWithDuplicates = results.map(({ child_id }) => child_id);
+			const idsToDeleteWithDuplicates = results.map(({ descendant_id }) => descendant_id);
 			const idsToDelete = [...new Set(idsToDeleteWithDuplicates)];
 
 			db.prepare(

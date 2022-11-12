@@ -11,8 +11,8 @@ export const GET: RequestHandler = async (event) => {
 	const { count_children } = db
 		.prepare(
 			`SELECT COUNT(*) - 1 AS count_children
-             FROM account_parent_child
-             WHERE parent_id = ?`
+             FROM account_closure
+             WHERE ancestor_id = ?`
 		)
 		.get(accountId);
 
