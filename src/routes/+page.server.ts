@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ params }) => {
              FROM account_parent_child
                  INNER JOIN account ON account_parent_child.parent_id = account.id
              GROUP BY child_id
-             ORDER BY parent_id, depth;`
+             ORDER BY parent_id, full_name;`
 		)
 		.all();
 
