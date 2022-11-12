@@ -12,7 +12,7 @@
 
 	let newAccount: Account = {
 		id: undefined,
-		name: undefined
+		full_name: undefined
 	};
 
 	const onCreateClick = async (event: Event) => {
@@ -71,7 +71,7 @@
 					<td class="border border-y-4 pl-4 pr-1 py-3 group">
 						<div class="flow-root">
 							<p class="float-left">
-								{account.name}
+								{account.full_name}
 							</p>
 							<div class="float-right flex">
 								<span
@@ -101,7 +101,7 @@
 				<td class="border border-y-4 px-4 py-3"
 					><input
 						type="text"
-						bind:value={newAccount.name}
+						bind:value={newAccount.full_name}
 						class="bg-blue-100 px-3 py-2 rounded-lg shadow-md"
 					/></td
 				>

@@ -41,7 +41,7 @@
 					<input
 						type="text"
 						name="parent_account_name"
-						bind:value={parentAccount.name}
+						bind:value={parentAccount.full_name}
 						disabled
 						class="bg-blue-100 px-3 py-2 rounded-lg shadow-md mb-2 disabled:bg-gray-300 disabled:shadow-none"
 					/>

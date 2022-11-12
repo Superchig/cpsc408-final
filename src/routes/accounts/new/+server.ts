@@ -7,7 +7,7 @@ export const POST: RequestHandler = async (event) => {
 
     const result: Account = await event.request.json();
 
-    db.prepare("INSERT INTO account(name) VALUES (?);").run(result.name);
+    db.prepare("INSERT INTO account(name) VALUES (?);").run(result.full_name);
 
     return new Response();
 }

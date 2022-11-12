@@ -7,7 +7,15 @@ import { request } from '@playwright/test';
 export const load: PageServerLoad = async ({ params }) => {
 	const db = getDB();
 
-	const results: Account[] = db.prepare('SELECT id, name FROM account;').all();
+	const results: Account[] = db
+		.prepare(
+			`SELECT child_id AS id, GROUP_CONCAT(account.name, ':') AS full_name
+             FROM account_parent_child
+                 INNER JOIN account ON account_parent_child.parent_id = account.id
+             GROUP BY child_id
+             ORDER BY parent_id, depth;`
+		)
+		.all();
 
 	return structuredClone({
 		accounts: results
@@ -31,12 +39,12 @@ export const actions: Actions = {
 			.prepare('INSERT INTO account(name) VALUES (?);')
 			.run(newAccountName);
 
-        // NOTE(Chris): By using a cross join of the parent and the child, we will
-        // place all of our desired ancestor accounts' IDs into p.parent_id. We
-        // will also place all of the IDs of the descendants of our new account
-        // (including the account's own ID) into c.child_id.
-        // In this specific case, our freshly-made account will have no descendants
-        // (besides itself), so its own ID will be its only descendant.
+		// NOTE(Chris): By using a cross join of the parent and the child, we will
+		// place all of our desired ancestor accounts' IDs into p.parent_id. We
+		// will also place all of the IDs of the descendants of our new account
+		// (including the account's own ID) into c.child_id.
+		// In this specific case, our freshly-made account will have no descendants
+		// (besides itself), so its own ID will be its only descendant.
 		db.prepare(
 			`INSERT INTO account_parent_child(parent_id, child_id, depth)
              SELECT p.parent_id, c.child_id, p.depth + c.depth + 1
