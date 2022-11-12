@@ -25,3 +25,6 @@ FROM account_parent_child
 INNER JOIN account ON account_parent_child.parent_id = account.id
 GROUP BY child_id
 ORDER BY parent_id, full_name;
+
+DELETE FROM account_parent_child;
+DELETE FROM account;

@@ -8,6 +8,7 @@
 	import { Modals, openModal } from 'svelte-modals';
 	import CreateChildAccountModal from './CreateChildAccountModal.svelte';
 	import TextInput from './TextInput.svelte';
+	import Button, { ButtonColor } from './Button.svelte';
 
 	export let data: PageData;
 
@@ -104,12 +105,11 @@
 				<td class="border border-y-4 px-4 py-3">
 					<TextInput bind:value={newAccount.full_name} class="px-3 py-2" />
 				</td>
-				<td class="p-2"
-					><button
-						class="bg-blue-500 text-white text-lg shadow-md rounded-lg p-3 px-6 pt-2 w-full hover:bg-blue-400"
-						on:click={onCreateClick}>Create</button
-					></td
-				>
+				<td class="p-2">
+					<Button color={ButtonColor.Blue} on:click={onCreateClick} class="p-3 px-6 pt-2 w-full text-lg">
+						Create
+					</Button>
+				</td>
 			</tr>
 		</tbody>
 	</table>

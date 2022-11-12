@@ -4,6 +4,7 @@
 	import type { Account } from '$lib/account';
 	import BaseModal from './BaseModal.svelte';
 	import TextInput from './TextInput.svelte';
+	import Button, { ButtonColor } from './Button.svelte';
 
 	// Provided by Modals
 	export let isOpen: boolean;
@@ -44,20 +45,13 @@
 
 		<hr class="mb-2" />
 
-		<!-- FIXME(Chris): Extract buttons out into their own component -->
 		<div class="actions flow-root">
-			<button
-				on:click={closeModal}
-				class="bg-red-500 text-white p-2 rounded-lg shadow-md float-left hover:bg-red-400"
-			>
+			<Button on:click={closeModal} color={ButtonColor.Red} class="p-2 float-left">
 				Cancel
-			</button>
-			<button
-				type="submit"
-				class="bg-blue-500 text-white p-2 rounded-lg shadow-md float-right hover:bg-blue-400 hover:cursor-pointer"
-			>
+			</Button>
+			<Button type="submit" color={ButtonColor.Blue} class="p-2 float-right">
 				Submit
-			</button>
+			</Button>
 		</div>
 	</form>
 </BaseModal>
