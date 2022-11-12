@@ -55,8 +55,6 @@ export const actions: Actions = {
 		const data = await event.request.formData();
 		const accountId = data.get('account_id');
 
-		console.log(accountId);
-
 		const db = getDB();
 
 		db.transaction(() => {

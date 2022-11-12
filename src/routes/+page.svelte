@@ -26,15 +26,6 @@
 
 	const onDeleteClick = async (event: Event, account: Account) => {
 		openModal(DeleteAccountModal, structuredClone({ account }));
-
-		// try {
-		// 	await ky.delete(`/accounts/${account.id}/delete`);
-		// 	location.reload();
-		// } catch (e) {
-		// 	error = e;
-		// } finally {
-		// 	console.log('This is the finally block!');
-		// }
 	};
 
 	// Error display
