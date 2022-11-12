@@ -7,6 +7,7 @@
 	import { faTrash, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 	import { Modals, openModal } from 'svelte-modals';
 	import CreateChildAccountModal from './CreateChildAccountModal.svelte';
+	import TextInput from './TextInput.svelte';
 
 	export let data: PageData;
 
@@ -22,8 +23,6 @@
 	};
 
 	const onDeleteClick = async (event: Event, account: Account) => {
-		console.log('account.id: ' + account.id);
-
 		try {
 			await ky.delete(`/accounts/${account.id}/delete`);
 			location.reload();
@@ -39,7 +38,11 @@
 	let error: any | null = null;
 </script>
 
-<Modals />
+<Modals>
+	<div slot="backdrop" class="backdrop">
+		<div class="bg-gray-600 bg-opacity-50 fixed top-0 bottom-0 w-full backdrop-blur-sm" />
+	</div>
+</Modals>
 
 <div class="m-4 mx-auto w-max">
 	<div class="bg-red-600 text-white p-3 m-1 rounded-md empty:hidden">
@@ -98,13 +101,9 @@
 			{/each}
 			<tr>
 				<td class="border border-y-4 px-6 py-3">TBD</td>
-				<td class="border border-y-4 px-4 py-3"
-					><input
-						type="text"
-						bind:value={newAccount.full_name}
-						class="bg-blue-100 px-3 py-2 rounded-lg shadow-md"
-					/></td
-				>
+				<td class="border border-y-4 px-4 py-3">
+					<TextInput bind:value={newAccount.full_name} class="px-3 py-2" />
+				</td>
 				<td class="p-2"
 					><button
 						class="bg-blue-500 text-white text-lg shadow-md rounded-lg p-3 px-6 pt-2 w-full hover:bg-blue-400"
