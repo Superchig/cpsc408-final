@@ -5,6 +5,7 @@
 	import BaseModal from './BaseModal.svelte';
 	import TextInput from './TextInput.svelte';
 	import Button, { ButtonColor } from './Button.svelte';
+	import { childAccount } from '$lib/routes';
 
 	// Provided by Modals
 	export let isOpen: boolean;
@@ -15,8 +16,7 @@
 </script>
 
 <BaseModal {isOpen}>
-	<!-- FIXME(Chris): Write functions to obtain the same route in multiple places -->
-	<form method="POST" action="?/childaccount">
+	<form method="POST" action={childAccount()}>
 		<h2 class="text-2xl mb-2">Create child account</h2>
 
 		<hr class="mb-3" />
