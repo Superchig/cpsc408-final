@@ -9,3 +9,7 @@ export function countChildrenPath(accountId: number) {
 export function createChildAccount() {
   return `?/create_child_account`;
 }
+
+export function accountsPath() {
+  return `/accounts`;
+}

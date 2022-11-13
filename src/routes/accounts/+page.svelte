@@ -10,8 +10,14 @@
   import TextInput from '../TextInput.svelte';
   import Button, { ButtonColor } from '../Button.svelte';
   import DeleteAccountModal from '../DeleteAccountModal.svelte';
+  import { onMount } from 'svelte';
+  import { NavbarTab, navbarTab } from '$lib/stores';
 
   export let data: PageData;
+
+  onMount(() => {
+    navbarTab.update(_ => NavbarTab.Accounts);
+  });
 
   let newAccount: Account = {
     id: undefined,
