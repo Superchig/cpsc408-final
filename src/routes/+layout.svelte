@@ -29,23 +29,20 @@
       >
         Home
       </a>
-      <div class="float-right">
-        <div class="flex space-x-8">
-          <a
-            href="/"
-            class={'text-lg hover:underline hover:text-blue-500 ' +
-              getTabClasses(NavbarTab.Transactions)}
-          >
-            Transactions
-          </a>
-          <a
-            href="/"
-            class={'text-lg hover:underline hover:text-blue-500 ' +
-              getTabClasses(NavbarTab.Accounts)}
-          >
-            Accounts
-          </a>
-        </div>
+      <div class="flex space-x-8">
+        <a
+          href="/"
+          class={'text-lg hover:underline hover:text-blue-500 ' +
+            getTabClasses(NavbarTab.Transactions)}
+        >
+          Transactions
+        </a>
+        <a
+          href="/"
+          class={'text-lg hover:underline hover:text-blue-500 ' + getTabClasses(NavbarTab.Accounts)}
+        >
+          Accounts
+        </a>
       </div>
     </div>
   </div>
