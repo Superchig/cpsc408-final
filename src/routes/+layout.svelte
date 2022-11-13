@@ -1,14 +1,11 @@
 <script lang="ts">
-  import { NavbarTab, navbarTab } from '$lib/stores';
+  import { NavbarTab } from '$lib/navbar_tab';
+  import type { LayoutData } from './$types';
 
-  let currentTab: NavbarTab | undefined = undefined;
-
-  navbarTab.subscribe((tab) => {
-    currentTab = tab;
-  });
+  export let data: LayoutData;
 
   const getTabClasses = (tab: NavbarTab): string => {
-    if (tab == currentTab) {
+    if (tab == data.currentTab) {
       return 'text-orange-600';
     } else {
       return '';
