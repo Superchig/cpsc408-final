@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '../app.css';
+  import '$lib/app.css';
 
   export let value: string | undefined = '';
   export let name: string | undefined = undefined;

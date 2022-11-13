@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageData } from './$types';
   import type { Account } from '$lib/account';
-  import '$lib/../app.css';
+  import '$lib/app.css';
   import ky from 'ky';
   import Fa from 'svelte-fa';
   import { faTrash, faCirclePlus } from '@fortawesome/free-solid-svg-icons';

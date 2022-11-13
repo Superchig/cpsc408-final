@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '../app.css';
+  import '$lib/app.css';
   import { useFocusOn } from 'svelte-focus-on';
 
   export let isOpen: boolean;

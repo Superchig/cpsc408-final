@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '../app.css';
+  import '$lib/app.css';
   import { closeModal } from 'svelte-modals';
   import type { Account } from '$lib/account';
   import BaseModal from './BaseModal.svelte';
