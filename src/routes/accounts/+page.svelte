@@ -6,10 +6,10 @@
   import Fa from 'svelte-fa';
   import { faTrash, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
   import { Modals, openModal } from 'svelte-modals';
-  import CreateChildAccountModal from '../CreateChildAccountModal.svelte';
-  import TextInput from '../TextInput.svelte';
-  import Button, { ButtonColor } from '../Button.svelte';
-  import DeleteAccountModal from '../DeleteAccountModal.svelte';
+  import CreateChildAccountModal from '$lib/CreateChildAccountModal.svelte';
+  import TextInput from '$lib/TextInput.svelte';
+  import Button, { ButtonColor } from '$lib/Button.svelte';
+  import DeleteAccountModal from '$lib/DeleteAccountModal.svelte';
 
   export let data: PageData;
 

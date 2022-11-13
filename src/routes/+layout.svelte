@@ -1,5 +1,6 @@
 <script lang="ts">
   import { NavbarTab } from '$lib/navbar_tab';
+  import { accountsPath } from '$lib/routes';
   import type { LayoutData } from './$types';
 
   export let data: LayoutData;
@@ -35,7 +36,7 @@
           Transactions
         </a>
         <a
-          href="/"
+          href={accountsPath()}
           class={'text-lg hover:underline hover:text-blue-500 ' + getTabClasses(NavbarTab.Accounts)}
         >
           Accounts
