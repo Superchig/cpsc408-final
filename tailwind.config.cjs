@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: [
+          'Atkinson Hyperlegible',
           'ui-sans-serif',
           '-apple-system',
           'BlinkMacSystemFont',

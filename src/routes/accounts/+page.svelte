@@ -1,15 +1,15 @@
 <script lang="ts">
   import type { PageData } from './$types';
   import type { Account } from '$lib/account';
-  import '../app.css';
+  import '$lib/../app.css';
   import ky from 'ky';
   import Fa from 'svelte-fa';
   import { faTrash, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
   import { Modals, openModal } from 'svelte-modals';
-  import CreateChildAccountModal from './CreateChildAccountModal.svelte';
-  import TextInput from './TextInput.svelte';
-  import Button, { ButtonColor } from './Button.svelte';
-  import DeleteAccountModal from './DeleteAccountModal.svelte';
+  import CreateChildAccountModal from '../CreateChildAccountModal.svelte';
+  import TextInput from '../TextInput.svelte';
+  import Button, { ButtonColor } from '../Button.svelte';
+  import DeleteAccountModal from '../DeleteAccountModal.svelte';
 
   export let data: PageData;
 
