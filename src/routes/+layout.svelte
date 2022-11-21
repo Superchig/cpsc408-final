@@ -34,8 +34,6 @@
 
     data.currentTab = getCurrentTab(pathname);
   });
-
-  $: console.log(data.currentTab);
 </script>
 
 <svelte:head>
