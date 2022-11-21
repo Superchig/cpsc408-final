@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { NavbarTab } from '$lib/navbar_tab';
-  import { accountsPath } from '$lib/routes';
+  import { afterNavigate, beforeNavigate } from '$app/navigation';
+  import { getCurrentTab, NavbarTab } from '$lib/navbar_tab';
+  import { accountsPath, transactionsPath } from '$lib/routes';
+  import { beforeUpdate, onMount } from 'svelte';
   import type { LayoutData } from './$types';
 
   export let data: LayoutData;
@@ -12,6 +14,28 @@
       return '';
     }
   };
+
+  // afterNavigate((navigation) => {
+  //   const pathname = navigation.to?.url.pathname;
+
+  //   if (!pathname) {
+  //     return;
+  //   }
+
+  //   data.currentTab = getCurrentTab(pathname);
+  // });
+
+  beforeUpdate(() => {
+    const pathname = window.location.pathname;
+
+    if (!pathname) {
+      return;
+    }
+
+    data.currentTab = getCurrentTab(pathname);
+  });
+
+  $: console.log(data.currentTab);
 </script>
 
 <svelte:head>
@@ -27,21 +51,24 @@
       >
         Home
       </a>
-      <div class="flex space-x-8">
-        <a
-          href="/"
-          class={'text-lg hover:underline hover:text-blue-500 ' +
-            getTabClasses(NavbarTab.Transactions)}
-        >
-          Transactions
-        </a>
-        <a
-          href={accountsPath()}
-          class={'text-lg hover:underline hover:text-blue-500 ' + getTabClasses(NavbarTab.Accounts)}
-        >
-          Accounts
-        </a>
-      </div>
+      {#key data.currentTab}
+        <div class="flex space-x-8">
+          <a
+            href={transactionsPath()}
+            class={'text-lg hover:underline hover:text-blue-500 ' +
+              getTabClasses(NavbarTab.Transactions)}
+          >
+            Transactions
+          </a>
+          <a
+            href={accountsPath()}
+            class={'text-lg hover:underline hover:text-blue-500 ' +
+              getTabClasses(NavbarTab.Accounts)}
+          >
+            Accounts
+          </a>
+        </div>
+      {/key}
     </div>
   </div>
 </nav>

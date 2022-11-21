@@ -13,3 +13,7 @@ export function createChildAccount() {
 export function accountsPath() {
   return `/accounts`;
 }
+
+export function transactionsPath() {
+  return `/transactions`;
+}
