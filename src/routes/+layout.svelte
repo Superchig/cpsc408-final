@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { afterNavigate, beforeNavigate } from '$app/navigation';
   import { getCurrentTab, NavbarTab } from '$lib/navbar_tab';
   import { accountsPath, transactionsPath } from '$lib/routes';
   import { beforeUpdate, onMount } from 'svelte';
+  import { Modals } from 'svelte-modals';
   import type { LayoutData } from './$types';
 
   export let data: LayoutData;
@@ -41,6 +41,12 @@
 <svelte:head>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible" />
 </svelte:head>
+
+<Modals>
+  <div slot="backdrop" class="backdrop">
+    <div class="bg-gray-600 bg-opacity-50 fixed top-0 bottom-0 w-full backdrop-blur-sm" />
+  </div>
+</Modals>
 
 <nav class="shadow-md p-2">
   <div class="m-auto max-w-screen-lg">

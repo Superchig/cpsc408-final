@@ -5,7 +5,7 @@
   import ky from 'ky';
   import Fa from 'svelte-fa';
   import { faTrash, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-  import { Modals, openModal } from 'svelte-modals';
+  import { openModal } from 'svelte-modals';
   import CreateChildAccountModal from '$lib/CreateChildAccountModal.svelte';
   import TextInput from '$lib/TextInput.svelte';
   import Button, { ButtonColor } from '$lib/Button.svelte';
@@ -32,12 +32,6 @@
 
   let error: any | null = null;
 </script>
-
-<Modals>
-  <div slot="backdrop" class="backdrop">
-    <div class="bg-gray-600 bg-opacity-50 fixed top-0 bottom-0 w-full backdrop-blur-sm" />
-  </div>
-</Modals>
 
 <div class="m-4 mx-auto w-max">
   <div class="bg-red-600 text-white p-3 m-1 rounded-md empty:hidden">
