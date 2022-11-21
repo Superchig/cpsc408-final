@@ -1,22 +1,12 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { getDB } from '$lib/server/db';
-import type { Account } from '$lib/account';
-import { request } from '@playwright/test';
-import { DBUS_SESSION_BUS_ADDRESS } from '$env/static/private';
+import { findAllAccounts } from '$lib/server/accounts';
 
 export const load: PageServerLoad = async ({ params }) => {
   const db = getDB();
 
-  const results: Account[] = db
-    .prepare(
-      `SELECT descendant_id AS id, GROUP_CONCAT(account.name, ':') AS full_name
-             FROM account_closure
-                 INNER JOIN account ON account_closure.ancestor_id = account.id
-             GROUP BY descendant_id
-             ORDER BY ancestor_id, full_name;`
-    )
-    .all();
+  const results = findAllAccounts(db);
 
   return structuredClone({
     accounts: results
