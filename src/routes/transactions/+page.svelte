@@ -3,16 +3,16 @@
   import '$lib/app.css';
   import Button, { ButtonColor } from '$lib/Button.svelte';
   import TextInput from '$lib/TextInput.svelte';
-  import { _ } from '$env/static/private';
 
   export let data: PageData;
 
   const today = new Date();
 </script>
 
-<div class="m-4 mx-auto min-w-max max-w-screen-md">
+<div class="m-4 mx-auto max-w-screen-md">
   <h1 class="text-2xl mb-3">Transactions</h1>
 
+  <!-- TODO(Chris): Give hover effects to all of the input fields -->
   <form class="flow-root">
     <!-- TODO(Chris): Fix bug in which x-ing out the date results in its input
     field changing in width slightly. -->
@@ -39,7 +39,7 @@
             <option value={account.id}>{account.full_name}</option>
           {/each}
         </select>
-      <!-- TODO(Chris): Check that all of the amounts add up to 0 -->
+        <!-- TODO(Chris): Check that all of the amounts add up to 0 -->
         <input
           type="number"
           name={`amount_${i + 1}`}
