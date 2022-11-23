@@ -1,6 +1,6 @@
 export interface DebitCredit {
-  accountId: 0;
-  amount: 0;
+  accountId: number;
+  amount: number;
 }
 
 export interface NewTransactionData {

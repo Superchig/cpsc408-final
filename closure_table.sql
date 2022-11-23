@@ -61,6 +61,20 @@ DELETE FROM account;
 SELECT * FROM financial_transaction;
 DELETE FROM financial_transaction;
 
+SELECT financial_transaction.id AS transaction_id,
+       debit_credit.id AS debit_credit_id,
+       amount AS debit_credit_amount,
+       account_id,
+       date AS transaction_date,
+       (SELECT GROUP_CONCAT(account.name, ':')
+        FROM account_closure
+            INNER JOIN account ON account_closure.ancestor_id = account.id
+        WHERE account_closure.descendant_id = account_id) AS full_name
+FROM financial_transaction
+    INNER JOIN debit_credit on financial_transaction.id = debit_credit.transaction_id
+    INNER JOIN account on debit_credit.account_id = account.id
+ORDER BY transaction_id;
+
 SELECT * FROM debit_credit
     INNER JOIN account a on debit_credit.account_id = a.id;
 DELETE FROM debit_credit;

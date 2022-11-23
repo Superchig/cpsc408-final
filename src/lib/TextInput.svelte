@@ -3,6 +3,7 @@
 
   export let value: string | undefined = '';
   export let name: string | undefined = undefined;
+  export let disabled: boolean | null | undefined = undefined;
 
   let className = '';
 
@@ -10,7 +11,7 @@
   export { className as class };
 </script>
 
-<input type="text" class={'bg-blue-200 rounded-lg shadow-md hover:bg-blue-100 ' + className} {name} bind:value />
+<input type="text" class={'bg-blue-200 rounded-lg shadow-md hover:bg-blue-100 ' + className} {name} {disabled} bind:value />
 
 <style>
 </style>
