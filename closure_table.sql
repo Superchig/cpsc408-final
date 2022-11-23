@@ -57,3 +57,10 @@ SELECT * FROM account;
 
 DELETE FROM account_closure;
 DELETE FROM account;
+
+SELECT * FROM financial_transaction;
+DELETE FROM financial_transaction;
+
+SELECT * FROM debit_credit
+    INNER JOIN account a on debit_credit.account_id = a.id;
+DELETE FROM debit_credit;
