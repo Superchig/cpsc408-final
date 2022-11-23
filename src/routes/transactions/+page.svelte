@@ -40,7 +40,7 @@
       <input
         type="date"
         bind:value={jsonData.date}
-        class="border rounded-md p-1 bg-gray-50 flex-none shadow-sm"
+        class="border rounded-md p-1 bg-gray-200 hover:bg-gray-100 flex-none shadow-sm"
       />
       <!-- TODO(Chris): Expand TextInput into text area when there's enough text -->
       <!-- TODO(Chris): Use adaptive default value for description... -->
@@ -54,7 +54,7 @@
       <!-- TODO(Chris): Allow for typing of account name -->
       {#each jsonData.debitsCredits as debitCredit}
         <select
-          class="col-start-4 col-span-7 px-0.5 py-1 rounded-lg shadow-sm"
+          class="col-start-4 col-span-7 px-0.5 py-1 rounded-lg shadow-sm bg-gray-200 hover:bg-gray-100"
           bind:value={debitCredit.accountId}
         >
           {#each data.accounts as account}
@@ -62,7 +62,7 @@
           {/each}
         </select>
         <!-- TODO(Chris): Check that all of the amounts add up to 0 -->
-        <input type="number" bind:value={debitCredit.amount} class="col-span-2 px-2 py-1 bg-orange-100 rounded-lg shadow-sm" />
+        <input type="number" bind:value={debitCredit.amount} class="col-span-2 px-2 py-1 bg-orange-100 hover:bg-orange-50 rounded-lg shadow-sm" />
       {/each}
     </div>
     <Button type="button" color={ButtonColor.Blue} class="mt-3 p-2 float-right" on:click={onNewTransactionSubmit}>
