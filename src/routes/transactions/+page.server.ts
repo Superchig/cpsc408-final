@@ -30,7 +30,7 @@ export const load: PageServerLoad = async ({ params }) => {
        FROM financial_transaction
            INNER JOIN debit_credit on financial_transaction.id = debit_credit.transaction_id
            INNER JOIN account on debit_credit.account_id = account.id
-       ORDER BY transaction_id;`
+       ORDER BY financial_transaction.date;`
     )
     .all();
 
