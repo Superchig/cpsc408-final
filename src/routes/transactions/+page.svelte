@@ -161,7 +161,7 @@
           </span>
         </div>
         <select
-          class="col-start-4 col-span-7 px-0.5 py-1 rounded-lg shadow-sm bg-gray-200 hover:bg-gray-100"
+          class="col-start-4 col-span-7 px-2 py-1 rounded-lg shadow-sm bg-gray-200 hover:bg-gray-100"
           bind:value={debitCredit.accountId}
         >
           {#each data.accounts as account}
