@@ -171,7 +171,7 @@
           {/each}
         </select> -->
         <div class="col-start-4 col-span-7 flex">
-          <DropDown accounts={data.accounts} />
+          <DropDown bind:outValue={debitCredit.accountId} accounts={data.accounts} />
         </div>
         <!-- TODO(Chris): Check that all of the amounts add up to 0 -->
         <input
