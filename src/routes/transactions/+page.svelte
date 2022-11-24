@@ -53,7 +53,10 @@
         bind:value={jsonData.date}
         class="border rounded-md p-1 bg-gray-200 hover:bg-gray-100 flex-none shadow-sm"
       />
-      <div class="relative flex-auto">
+      <!-- NOTE(Chris): That's right. This is a flexbox within a flexbox. This
+           allow us to maximize the width of the text input, despite its sibling
+           label.  -->
+      <div class="relative flex-auto flex">
         <!-- TODO(Chris): Expand TextInput into text area when there's enough text -->
         <input
           type="text"
