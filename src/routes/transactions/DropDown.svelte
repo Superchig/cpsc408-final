@@ -1,15 +1,16 @@
 <script lang="ts">
   import type { Account } from '$lib/account';
+  import { element } from 'svelte/internal';
 
   export let accounts: Account[];
   export let outValue: any;
 
-  const CLASS_DROP_DOWN_LIST = 'drop_down_list';
-  const CLASS_TEXT_INPUT = 'drop_down_text_input';
-
   let displayValue = '';
   let isMenuOpen = false;
   let filteredAccounts = accounts;
+
+  let inputTextElem: HTMLElement;
+  let listElem: HTMLElement;
 
   $: {
     // TODO(Chris): Fuzzy-search for accounts, perhaps using https://fusejs.io/
@@ -18,7 +19,7 @@
 
   const onFocusOut = (event: FocusEvent) => {
     for (const elem of document.querySelectorAll(':hover')) {
-      if (elem.classList.contains(CLASS_DROP_DOWN_LIST)) {
+      if (elem === listElem || elem === inputTextElem) {
         return;
       }
     }
@@ -27,7 +28,10 @@
   };
 
   const onMouseLeave = (event: Event) => {
-    if (window.document.activeElement?.classList.contains(CLASS_TEXT_INPUT)) {
+    if (
+      window.document.activeElement === listElem ||
+      window.document.activeElement === inputTextElem
+    ) {
       return;
     }
 
@@ -49,20 +53,23 @@
 
 <input
   type="text"
-  class={`${CLASS_TEXT_INPUT} flex-auto px-2 py-1 bg-gray-200 hover:bg-gray-100 rounded-lg shadow-sm peer`}
+  class="flex-auto px-2 py-1 bg-gray-200 hover:bg-gray-100 rounded-lg shadow-sm peer"
   on:focusin={() => (isMenuOpen = true)}
   on:focusout={onFocusOut}
   bind:value={displayValue}
+  bind:this={inputTextElem}
 />
 
 {#if isMenuOpen}
   {#if filteredAccounts.length > 0}
     <ul
-      class={`${CLASS_DROP_DOWN_LIST} absolute translate-y-9 p-2 bg-white rounded-md shadow-md`}
+      class="absolute translate-y-9 p-2 bg-white rounded-md shadow-md"
       on:mouseleave={onMouseLeave}
+      bind:this={listElem}
     >
       {#each filteredAccounts as account}
-        <div tabindex="-1"
+        <div
+          tabindex="-1"
           class="px-1 rounded-sm focus:bg-orange-400 focus:shadow-sm focus:cursor-pointer"
           on:click={(event) => onClickItemSuggestion(event, account)}
           on:mouseover={onMouseOver}
