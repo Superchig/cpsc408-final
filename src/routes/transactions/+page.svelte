@@ -6,8 +6,7 @@
   import ky from 'ky';
   import Fa from 'svelte-fa';
   import { faCirclePlus, faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-  import type { NewTransactionData } from '$lib/transaction';
-  import { transactionsPath } from '$lib/routes';
+  import type { DebitCredit, NewTransactionData } from '$lib/transaction';
 
   export let data: PageData;
 
@@ -37,6 +36,10 @@
     });
 
     jsonData.debitsCredits = jsonData.debitsCredits;
+  };
+
+  const onClickDeleteDebitCredit = (event: Event, debitCredit: DebitCredit) => {
+    jsonData.debitsCredits = jsonData.debitsCredits.filter((dc) => dc != debitCredit);
   };
 </script>
 
@@ -107,7 +110,11 @@
               <Fa icon={faCirclePlus} />
             </span>
           {/if}
-          <span class="translate-y-1/4">
+          <span
+            class="translate-y-1/4"
+            on:click={(event) => onClickDeleteDebitCredit(event, debitCredit)}
+            on:keydown={(event) => onClickDeleteDebitCredit(event, debitCredit)}
+          >
             <Fa icon={faTrash} />
           </span>
         </div>
