@@ -41,6 +41,10 @@
   const onClickDeleteDebitCredit = (event: Event, debitCredit: DebitCredit) => {
     jsonData.debitsCredits = jsonData.debitsCredits.filter((dc) => dc != debitCredit);
   };
+
+  const onClickDeleteTransaction = (event: Event, transactionId: number) => {
+    // await ky.delete(`/transactions/${transactionId}/delete`);
+  };
 </script>
 
 <div class="m-4 mx-auto max-w-screen-md">
@@ -148,7 +152,7 @@
 
   <div class="flex flex-col gap-y-10">
     {#each data.transactions as transaction}
-      <form class="flow-root">
+      <form class="flow-root group">
         <div class="flex mb-3 gap-x-2">
           <!-- https://stackoverflow.com/questions/6982692/how-to-set-input-type-dates-default-value-to-today -->
           <input
@@ -165,6 +169,16 @@
           />
         </div>
         <div class="grid grid-cols-12 gap-x-3 gap-y-2 max-w-screen-md">
+          <div class="flex invisible group-hover:visible">
+            <span>
+              <Fa
+                icon={faTrash}
+                class="text-red-600 hover:text-red-400"
+                on:click={(event) => onClickDeleteTransaction(event, transaction.id)}
+                on:keydown={(event) => onClickDeleteTransaction(event, transaction.id)}
+              />
+            </span>
+          </div>
           {#each transaction.debitsCredits as debitCredit}
             <select
               class="col-start-4 col-span-7 px-0.5 py-1 rounded-lg shadow-sm bg-gray-200 hover:bg-gray-100"
