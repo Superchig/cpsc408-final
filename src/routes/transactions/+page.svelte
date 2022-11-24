@@ -5,7 +5,7 @@
   import TextInput from '$lib/TextInput.svelte';
   import ky from 'ky';
   import Fa from 'svelte-fa';
-  import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+  import { faCirclePlus, faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons';
   import type { NewTransactionData } from '$lib/transaction';
   import { transactionsPath } from '$lib/routes';
 
@@ -33,7 +33,7 @@
   const onClickNewDebitCredit = (event: Event) => {
     jsonData.debitsCredits.push({
       accountId: 0,
-      amount: 0,
+      amount: 0
     });
 
     jsonData.debitsCredits = jsonData.debitsCredits;
@@ -64,16 +64,24 @@
     </div>
     <div class="grid grid-cols-12 gap-x-3 gap-y-2 max-w-screen-md group">
       <!-- TODO(Chris): Allow for typing of account name -->
-      {#each jsonData.debitsCredits as debitCredit, i}
-        {#if i == jsonData.debitsCredits.length - 1}
-          <span
-            class="invisible group-hover:visible col-start-3 text-green-600 hover:text-green-400 hover:cursor-pointer"
-            on:click={onClickNewDebitCredit}
-            on:keypress={onClickNewDebitCredit}
-          >
-            <Fa icon={faCirclePlus} class="ml-auto translate-y-1/2" />
+      <!-- NOTE(Chris): We use the reference for the debitCredit itself as the key
+           for this list. This is because we don't have a lasting, unique ID for
+           each debit/credit while simply in the front-end. -->
+      {#each jsonData.debitsCredits as debitCredit, i (debitCredit)}
+        <div class="invisible group-hover:visible col-start-3 ml-auto flex gap-x-1 text-red-600 hover:text-red-400 hover:cursor-pointer">
+          {#if i == jsonData.debitsCredits.length - 1}
+            <span
+              class="text-green-600 translate-y-1/4 hover:text-green-400 hover:cursor-pointer"
+              on:click={onClickNewDebitCredit}
+              on:keypress={onClickNewDebitCredit}
+            >
+              <Fa icon={faCirclePlus} />
+            </span>
+          {/if}
+          <span class="translate-y-1/4">
+            <Fa icon={faTrash} />
           </span>
-        {/if}
+        </div>
         <select
           class="col-start-4 col-span-7 px-0.5 py-1 rounded-lg shadow-sm bg-gray-200 hover:bg-gray-100"
           bind:value={debitCredit.accountId}
