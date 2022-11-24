@@ -24,7 +24,12 @@
   };
 
   const onClickNewTransactionCreate = async () => {
-    await ky.post('/transactions/new', { json: jsonData });
+    try {
+      await ky.post('/transactions/new', { json: jsonData });
+    } catch (e) {
+      error = e;
+      return;
+    }
 
     location.reload();
   };
@@ -45,9 +50,20 @@
   const onClickDeleteTransaction = (event: Event, transactionId: number) => {
     // await ky.delete(`/transactions/${transactionId}/delete`);
   };
+
+  // Error display
+
+  let error: any | null = null;
 </script>
 
 <div class="m-4 mx-auto max-w-screen-md">
+  <div class="bg-red-600 text-white p-3 m-1 rounded-md empty:hidden">
+    {#if error != null}
+      <h1 class="text-2xl mb-3">Error</h1>
+      {error.toString()}
+    {/if}
+  </div>
+
   <h1 class="text-2xl mb-3">Transactions</h1>
 
   <form class="flow-root">
