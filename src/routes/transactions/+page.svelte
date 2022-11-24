@@ -54,13 +54,35 @@
         bind:value={jsonData.date}
         class="border rounded-md p-1 bg-gray-200 hover:bg-gray-100 flex-none shadow-sm"
       />
-      <!-- TODO(Chris): Expand TextInput into text area when there's enough text -->
-      <!-- TODO(Chris): Use adaptive default value for description... -->
-      <TextInput
-        name="description"
-        bind:value={jsonData.description}
-        class="px-2 py-1 flex-auto shadow-sm"
-      />
+      <div class="relative flex-auto">
+        <!-- TODO(Chris): Expand TextInput into text area when there's enough text -->
+        <!-- TODO(Chris): Use adaptive default value for description... -->
+        <input
+          type="text"
+          id="description"
+          name="description"
+          bind:value={jsonData.description}
+          placeholder=" "
+          class="peer px-2 pt-2 pb-1 flex-auto shadow-sm border rounded-md"
+        />
+        <label
+          for="description"
+          class="absolute text-gray-500 bg-white transition-all duration-500
+                 left-2.5
+                 peer-placeholder-shown:translate-y-2 peer-focus:-translate-y-3 -translate-y-3
+                 peer-placeholder-shown:scale-100 peer-focus:scale-75 scale-75
+                 peer-placeholder-shown:translate-x-0 peer-focus:-translate-x-3 -translate-x-3
+                 hover:cursor-text"
+          on:click={(event) => {
+            document.getElementById('description')?.click();
+          }}
+          on:keydown={(event) => {
+            document.getElementById('description')?.click();
+          }}
+        >
+          Description
+        </label>
+      </div>
     </div>
     <div class="grid grid-cols-12 gap-x-3 gap-y-2 max-w-screen-md group">
       <!-- TODO(Chris): Allow for typing of account name -->
@@ -68,7 +90,9 @@
            for this list. This is because we don't have a lasting, unique ID for
            each debit/credit while simply in the front-end. -->
       {#each jsonData.debitsCredits as debitCredit, i (debitCredit)}
-        <div class="invisible group-hover:visible col-start-3 ml-auto flex gap-x-1 text-red-600 hover:text-red-400 hover:cursor-pointer">
+        <div
+          class="invisible group-hover:visible col-start-3 ml-auto flex gap-x-1 text-red-600 hover:text-red-400 hover:cursor-pointer"
+        >
           {#if i == jsonData.debitsCredits.length - 1}
             <span
               class="text-green-600 translate-y-1/4 hover:text-green-400 hover:cursor-pointer"
