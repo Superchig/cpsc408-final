@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Account } from '$lib/account';
+  import type { Keyboard } from '@playwright/test';
   import { element } from 'svelte/internal';
 
   export let accounts: Account[];
@@ -8,9 +9,12 @@
   let displayValue = '';
   let isMenuOpen = false;
   let filteredAccounts = accounts;
+  let selectedIndex: number | undefined = undefined;
 
   let inputTextElem: HTMLElement;
   let listElem: HTMLElement;
+
+  $: console.log(selectedIndex);
 
   $: {
     // TODO(Chris): Fuzzy-search for accounts, perhaps using https://fusejs.io/
@@ -19,35 +23,74 @@
 
   const onFocusOut = (event: FocusEvent) => {
     for (const elem of document.querySelectorAll(':hover')) {
-      if (elem === listElem || elem === inputTextElem) {
+      if (elem === listElem) {
         return;
       }
     }
 
-    isMenuOpen = false;
-  };
-
-  const onMouseLeave = (event: Event) => {
-    if (
-      window.document.activeElement === listElem ||
-      window.document.activeElement === inputTextElem
-    ) {
+    if (isOurElement(window.document.activeElement as HTMLElement)) {
       return;
     }
 
     isMenuOpen = false;
   };
 
-  const onClickItemSuggestion = (event: Event, account: Account) => {
-    displayValue = account.full_name!;
-    outValue = account.id;
+  const onMouseLeave = (event: Event) => {
+    if (isOurElement(window.document.activeElement as HTMLElement)) {
+      return;
+    }
 
     isMenuOpen = false;
   };
 
-  const onMouseOver = (event: Event) => {
-    const elem = event.target as HTMLElement;
-    elem.focus();
+  const isOurElement = (elem: HTMLElement): boolean => {
+    return elem === listElem || elem === inputTextElem;
+  };
+
+  const onClickItemSuggestion = (event: Event, account: Account) => {
+    setAccount(account);
+
+    isMenuOpen = false;
+  };
+
+  const setAccount = (account: Account) => {
+    displayValue = account.full_name!;
+    outValue = account.id;
+  };
+
+  const onKeyDown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case 'ArrowDown':
+        if (selectedIndex === undefined) {
+          selectedIndex = 0;
+        } else {
+          selectedIndex++;
+        }
+        break;
+      case 'ArrowUp':
+        if (selectedIndex === undefined) {
+          selectedIndex = 0;
+        } else {
+          selectedIndex--;
+        }
+        break;
+      case 'Enter':
+        if (selectedIndex === undefined) {
+          selectedIndex = 0;
+        }
+        setAccount(filteredAccounts[selectedIndex]);
+      default:
+        selectedIndex = undefined;
+        return;
+    }
+
+    if (selectedIndex >= filteredAccounts.length) {
+      selectedIndex = filteredAccounts.length - 1;
+    } else if (selectedIndex < 0) {
+      selectedIndex = 0;
+    }
+
+    event.preventDefault();
   };
 </script>
 
@@ -58,23 +101,24 @@
   on:focusout={onFocusOut}
   bind:value={displayValue}
   bind:this={inputTextElem}
+  on:keydown={onKeyDown}
 />
 
 {#if isMenuOpen}
   {#if filteredAccounts.length > 0}
     <ul
       class="absolute translate-y-9 p-2 bg-white rounded-md shadow-md"
-      on:mouseleave={onMouseLeave}
       bind:this={listElem}
+      on:mouseleave={onMouseLeave}
     >
-      {#each filteredAccounts as account}
+      {#each filteredAccounts as account, i}
         <div
-          tabindex="-1"
-          class="px-1 rounded-sm focus:bg-orange-400 focus:shadow-sm focus:cursor-pointer"
+          class={'px-1 rounded-sm hover:cursor-pointer ' +
+            (selectedIndex === i ? 'bg-orange-400 shadow-sm' : '')}
           on:click={(event) => onClickItemSuggestion(event, account)}
-          on:mouseover={onMouseOver}
-          on:focus
-          on:keydown={() => {}}
+          on:mouseover={() => (selectedIndex = i)}
+          on:focus={null}
+          on:keydown={null}
         >
           {account.full_name}
         </div>
