@@ -6,8 +6,6 @@ export const DELETE: RequestHandler = async (event) => {
 
   const transactionId = Number(event.params.transaction);
 
-  console.log(transactionId);
-
   db.transaction(() => {
     // NOTE(Chris): We delete the debit/credits manually, rather than using an
     // ON DELETE CASCADE clause. This prevents us from accidentally deleting
