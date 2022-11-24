@@ -4,7 +4,7 @@
   import { element } from 'svelte/internal';
 
   export let accounts: Account[];
-  export let outValue: any;
+  export let outId: number;
 
   let displayValue = '';
   let isMenuOpen = false;
@@ -14,11 +14,17 @@
   let inputTextElem: HTMLElement;
   let listElem: HTMLElement;
 
-  $: console.log(selectedIndex);
-
   $: {
     // TODO(Chris): Fuzzy-search for accounts, perhaps using https://fusejs.io/
     filteredAccounts = accounts.filter((account) => account.full_name?.includes(displayValue));
+  }
+
+  $: {
+    const candidateId = filteredAccounts.find((account) => account.full_name === displayValue);
+
+    outId = candidateId === undefined ? 0 : candidateId.id!;
+
+    console.log(outId);
   }
 
   const onFocusOut = (event: FocusEvent) => {
@@ -55,7 +61,7 @@
 
   const setAccount = (account: Account) => {
     displayValue = account.full_name!;
-    outValue = account.id;
+    outId = account.id;
   };
 
   const onKeyDown = (event: KeyboardEvent) => {
@@ -77,8 +83,9 @@
       case 'Enter':
         if (selectedIndex === undefined) {
           selectedIndex = 0;
+        } else {
+          displayValue = filteredAccounts[selectedIndex].full_name!;
         }
-        setAccount(filteredAccounts[selectedIndex]);
       default:
         selectedIndex = undefined;
         return;
