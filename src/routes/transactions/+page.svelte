@@ -137,7 +137,6 @@
       </div>
     </div>
     <div class="grid grid-cols-12 gap-x-3 gap-y-2 max-w-screen-md group">
-      <!-- TODO(Chris): Allow for typing of account name -->
       <!-- NOTE(Chris): We use the reference for the debitCredit itself as the key
            for this list. This is because we don't have a lasting, unique ID for
            each debit/credit while simply in the front-end. -->
