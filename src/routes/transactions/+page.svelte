@@ -10,6 +10,8 @@
 
   export let data: PageData;
 
+  const ID_FORM = 'new_transaction_form';
+
   const today = new Date();
 
   let jsonData: NewTransactionData = {
@@ -81,7 +83,7 @@
 
   <h1 class="text-2xl mb-3">Transactions</h1>
 
-  <form class="flow-root">
+  <form class="flow-root" id={ID_FORM}>
     <!-- TODO(Chris): Fix bug in which x-ing out the date results in its input
     field changing in width slightly. -->
     <div class="flex mb-3 gap-x-2">
@@ -104,6 +106,11 @@
           placeholder=" "
           class="peer px-2 pt-2 pb-1 flex-auto shadow-sm border
                  rounded-md hover:border-gray-700 focus:border-blue-700 outline-none"
+          on:keydown={(event) => {
+            if (event.key == 'Enter') {
+              onClickNewTransactionCreate();
+            }
+          }}
         />
         <!-- NOTE(Chris): This sets up a floating label for the description. -->
         <!-- https://www.youtube.com/watch?v=nJzKi6oIvBA -->
@@ -166,6 +173,11 @@
           type="number"
           bind:value={debitCredit.amount}
           class="col-span-2 px-2 py-1 bg-orange-100 hover:bg-orange-50 rounded-lg shadow-sm"
+          on:keydown={(event) => {
+            if (event.key == 'Enter') {
+              onClickNewTransactionCreate();
+            }
+          }}
         />
       {/each}
     </div>
