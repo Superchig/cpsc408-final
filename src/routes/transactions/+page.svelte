@@ -3,7 +3,7 @@
   import '$lib/app.css';
   import Button, { ButtonColor } from '$lib/Button.svelte';
   import TextInput from '$lib/TextInput.svelte';
-  import ky from 'ky';
+  import ky, { HTTPError } from 'ky';
   import Fa from 'svelte-fa';
   import { faCirclePlus, faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons';
   import type { DebitCredit, NewTransactionData } from '$lib/transaction';
@@ -52,7 +52,6 @@
       await ky.delete(`/transactions/${transactionId}/delete`);
     } catch (e) {
       error = e;
-      return;
     }
 
     location.reload();
@@ -68,6 +67,15 @@
     {#if error != null}
       <h1 class="text-2xl mb-3">Error</h1>
       {error.toString()}
+      {#if error instanceof HTTPError}
+        {#await error.response.json() then body}
+          {#if body.message}
+            <div>
+              {body.message}
+            </div>
+          {/if}
+        {/await}
+      {/if}
     {/if}
   </div>
 
