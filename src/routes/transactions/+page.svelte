@@ -5,7 +5,7 @@
   import TextInput from '$lib/TextInput.svelte';
   import ky, { HTTPError } from 'ky';
   import Fa from 'svelte-fa';
-  import { faCirclePlus, faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+  import { faCirclePlus, faTrash } from '@fortawesome/free-solid-svg-icons';
   import type { DebitCredit, NewTransactionData } from '$lib/transaction';
 
   export let data: PageData;

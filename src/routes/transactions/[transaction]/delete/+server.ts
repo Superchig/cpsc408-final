@@ -1,5 +1,4 @@
 import type { RequestHandler } from './$types';
-import type { Account } from '$lib/account';
 import { getDB } from '$lib/server/db';
 
 export const DELETE: RequestHandler = async (event) => {
