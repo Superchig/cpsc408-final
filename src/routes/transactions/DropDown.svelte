@@ -40,6 +40,11 @@
 
     isMenuOpen = false;
   };
+
+  const onMouseOver = (event: Event) => {
+    const elem = event.target as HTMLElement;
+    elem.focus();
+  };
 </script>
 
 <input
@@ -57,9 +62,11 @@
       on:mouseleave={onMouseLeave}
     >
       {#each filteredAccounts as account}
-        <div
-          class="px-1 rounded-sm hover:bg-orange-400 hover:shadow-sm hover:cursor-pointer"
+        <div tabindex="-1"
+          class="px-1 rounded-sm focus:bg-orange-400 focus:shadow-sm focus:cursor-pointer"
           on:click={(event) => onClickItemSuggestion(event, account)}
+          on:mouseover={onMouseOver}
+          on:focus
           on:keydown={() => {}}
         >
           {account.full_name}
