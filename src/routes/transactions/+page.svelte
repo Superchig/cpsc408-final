@@ -99,7 +99,7 @@
            each debit/credit while simply in the front-end. -->
       {#each jsonData.debitsCredits as debitCredit, i (debitCredit)}
         <div
-          class="invisible group-hover:visible col-start-3 ml-auto flex gap-x-1 text-red-600 hover:text-red-400 hover:cursor-pointer"
+          class="invisible group-hover:visible col-start-3 ml-auto flex gap-x-1 hover:cursor-pointer"
         >
           {#if i == jsonData.debitsCredits.length - 1}
             <span
@@ -111,7 +111,7 @@
             </span>
           {/if}
           <span
-            class="translate-y-1/4"
+            class="translate-y-1/4 text-red-600 hover:text-red-400"
             on:click={(event) => onClickDeleteDebitCredit(event, debitCredit)}
             on:keydown={(event) => onClickDeleteDebitCredit(event, debitCredit)}
           >
