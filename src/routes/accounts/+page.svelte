@@ -91,7 +91,11 @@
       <tr>
         <td class="border border-y-4 px-6 py-3">TBD</td>
         <td class="border border-y-4 px-4 py-3">
-          <TextInput bind:value={newAccount.full_name} class="px-3 py-2" />
+          <TextInput bind:value={newAccount.full_name} on:keydown={(event) => {
+            if (event.key === "Enter") {
+              onCreateClick(event);
+            }
+          }} class="px-3 py-2" />
         </td>
         <td class="p-2">
           <Button

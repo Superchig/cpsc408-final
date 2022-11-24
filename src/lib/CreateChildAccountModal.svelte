@@ -13,10 +13,17 @@
   export let parentAccount: Account;
 
   let newAccountName = '';
+
+  const onKeyDownInFieldName = (event: KeyboardEvent) => {
+    if (event.key == 'Enter') {
+      const form = document.getElementById('create_child_account') as HTMLFormElement;
+      form.submit();
+    }
+  };
 </script>
 
 <BaseModal {isOpen}>
-  <form method="POST" action={createChildAccount()}>
+  <form id="create_child_account" method="POST" action={createChildAccount()}>
     <h2 class="text-2xl mb-2">Create child account</h2>
 
     <hr class="mb-3" />
@@ -40,7 +47,12 @@
       />
 
       <label for="new_account_name" class="text-right py-2 mb-2">Name:</label>
-      <TextInput bind:value={newAccountName} name="new_account_name" class="px-3 py-2 mb-3" />
+      <TextInput
+        bind:value={newAccountName}
+        on:keydown={onKeyDownInFieldName}
+        name="new_account_name"
+        class="px-3 py-2 mb-3"
+      />
     </div>
 
     <hr class="mb-2" />

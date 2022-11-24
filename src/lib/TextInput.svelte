@@ -19,6 +19,7 @@
   {disabled}
   {placeholder}
   bind:value
+  on:keydown
 />
 
 <style>

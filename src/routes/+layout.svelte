@@ -15,16 +15,6 @@
     }
   };
 
-  // afterNavigate((navigation) => {
-  //   const pathname = navigation.to?.url.pathname;
-
-  //   if (!pathname) {
-  //     return;
-  //   }
-
-  //   data.currentTab = getCurrentTab(pathname);
-  // });
-
   beforeUpdate(() => {
     const pathname = window.location.pathname;
 
