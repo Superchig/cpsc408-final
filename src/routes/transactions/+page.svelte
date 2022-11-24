@@ -95,6 +95,7 @@
         <TextInput
           name="description"
           class="px-2 py-1 flex-auto shadow-sm"
+          value={transaction.description}
           disabled
         />
       </div>

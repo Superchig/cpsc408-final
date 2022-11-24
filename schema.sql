@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS account_closure (
 CREATE TABLE IF NOT EXISTS financial_transaction (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   date TEXT,
+  description TEXT,
   priority INTEGER
 ) STRICT;
 

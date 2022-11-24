@@ -62,6 +62,7 @@ SELECT * FROM financial_transaction;
 DELETE FROM financial_transaction;
 
 SELECT financial_transaction.id AS transaction_id,
+       financial_transaction.description,
        debit_credit.id AS debit_credit_id,
        amount AS debit_credit_amount,
        account_id,

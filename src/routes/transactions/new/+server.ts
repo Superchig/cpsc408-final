@@ -25,10 +25,10 @@ export const POST: RequestHandler = async (event) => {
     // TODO(Chris): Set the priority of a financial transaction when creating one
     const info = db
       .prepare(
-        `INSERT INTO financial_transaction(date)
-       VALUES (?)`
+        `INSERT INTO financial_transaction(date, description)
+         VALUES (?, ?)`
       )
-      .run(jsonData.date);
+      .run(jsonData.date, jsonData.description);
 
     const values_sql = jsonData.debitsCredits.map((_) => '(?, ?, ?)').join(', ');
     const values = jsonData.debitsCredits.map((dc) => [
