@@ -54,14 +54,9 @@
   };
 
   const onClickItemSuggestion = (event: Event, account: Account) => {
-    setAccount(account);
+    displayValue = account.full_name!;
 
     isMenuOpen = false;
-  };
-
-  const setAccount = (account: Account) => {
-    displayValue = account.full_name!;
-    outId = account.id;
   };
 
   const onKeyDown = (event: KeyboardEvent) => {
