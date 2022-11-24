@@ -1,4 +1,6 @@
 <script lang="ts">
+  import DropDown from './DropDown.svelte';
+
   import type { PageData } from './$types';
   import '$lib/app.css';
   import Button, { ButtonColor } from '$lib/Button.svelte';
@@ -160,14 +162,17 @@
             <Fa icon={faTrash} />
           </span>
         </div>
-        <select
+        <!-- <select
           class="col-start-4 col-span-7 px-2 py-1 rounded-lg shadow-sm bg-gray-200 hover:bg-gray-100"
           bind:value={debitCredit.accountId}
         >
           {#each data.accounts as account}
             <option value={account.id}>{account.full_name}</option>
           {/each}
-        </select>
+        </select> -->
+        <div class="col-start-4 col-span-7 flex">
+          <DropDown accounts={data.accounts} />
+        </div>
         <!-- TODO(Chris): Check that all of the amounts add up to 0 -->
         <input
           type="number"
