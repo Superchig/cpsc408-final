@@ -8,6 +8,8 @@
 
   let displayValue = '';
   let isMenuOpen = false;
+  let hasFocusedTextInput = false;
+  let isFocusedOnTextInput = false;
   let filteredAccounts = accounts;
   let selectedIndex: number | undefined = undefined;
 
@@ -96,9 +98,20 @@
 
 <input
   type="text"
-  class="flex-auto px-2 py-1 bg-gray-200 hover:bg-gray-100 rounded-lg shadow-sm peer"
-  on:focusin={() => (isMenuOpen = true)}
-  on:focusout={onFocusOut}
+  class={'flex-auto px-2 py-1 bg-gray-200 hover:bg-gray-100 rounded-lg shadow-sm peer ' +
+    (outId !== 0 || !hasFocusedTextInput || isFocusedOnTextInput
+      ? ' '
+      : 'outline outline-1 outline-red-600 bg-yellow-300')}
+  on:focusin={() => {
+    isMenuOpen = true;
+    hasFocusedTextInput = true;
+    isFocusedOnTextInput = true;
+  }}
+  on:focusout={(event) => {
+    onFocusOut(event);
+
+    isFocusedOnTextInput = false;
+  }}
   bind:value={displayValue}
   bind:this={inputTextElem}
   on:keydown={onKeyDown}
