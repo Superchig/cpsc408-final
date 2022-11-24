@@ -43,7 +43,6 @@
 <div class="m-4 mx-auto max-w-screen-md">
   <h1 class="text-2xl mb-3">Transactions</h1>
 
-  <!-- TODO(Chris): Give hover effects to all of the input fields -->
   <form class="flow-root">
     <!-- TODO(Chris): Fix bug in which x-ing out the date results in its input
     field changing in width slightly. -->
@@ -56,15 +55,18 @@
       />
       <div class="relative flex-auto">
         <!-- TODO(Chris): Expand TextInput into text area when there's enough text -->
-        <!-- TODO(Chris): Use adaptive default value for description... -->
         <input
           type="text"
           id="description"
           name="description"
           bind:value={jsonData.description}
           placeholder=" "
-          class="peer px-2 pt-2 pb-1 flex-auto shadow-sm border rounded-md"
+          class="peer px-2 pt-2 pb-1 flex-auto shadow-sm border
+                 rounded-md hover:border-gray-700 focus:border-blue-700 outline-none"
         />
+        <!-- NOTE(Chris): This sets up a floating label for the description. -->
+        <!-- https://www.youtube.com/watch?v=nJzKi6oIvBA -->
+        <!-- https://flowbite.com/docs/forms/floating-label/ -->
         <label
           for="description"
           class="absolute text-gray-500 bg-white transition-all duration-500
