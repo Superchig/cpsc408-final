@@ -47,8 +47,15 @@
     jsonData.debitsCredits = jsonData.debitsCredits.filter((dc) => dc != debitCredit);
   };
 
-  const onClickDeleteTransaction = (event: Event, transactionId: number) => {
-    // await ky.delete(`/transactions/${transactionId}/delete`);
+  const onClickDeleteTransaction = async (event: Event, transactionId: number) => {
+    try {
+      await ky.delete(`/transactions/${transactionId}/delete`);
+    } catch (e) {
+      error = e;
+      return;
+    }
+
+    location.reload();
   };
 
   // Error display
@@ -186,13 +193,12 @@
         </div>
         <div class="grid grid-cols-12 gap-x-3 gap-y-2 max-w-screen-md">
           <div class="flex invisible group-hover:visible">
-            <span>
-              <Fa
-                icon={faTrash}
-                class="text-red-600 hover:text-red-400"
-                on:click={(event) => onClickDeleteTransaction(event, transaction.id)}
-                on:keydown={(event) => onClickDeleteTransaction(event, transaction.id)}
-              />
+            <span
+              class="text-red-600 hover:text-red-400 hover:cursor-pointer"
+              on:click={(event) => onClickDeleteTransaction(event, transaction.id)}
+              on:keydown={(event) => onClickDeleteTransaction(event, transaction.id)}
+            >
+              <Fa icon={faTrash} />
             </span>
           </div>
           {#each transaction.debitsCredits as debitCredit}
