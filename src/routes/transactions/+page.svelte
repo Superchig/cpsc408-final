@@ -23,7 +23,7 @@
     })
   };
 
-  const onNewTransactionSubmit = async () => {
+  const onClickNewTransactionCreate = async () => {
     await ky.post('/transactions/new', { json: jsonData });
 
     location.reload();
@@ -138,9 +138,9 @@
       type="button"
       color={ButtonColor.Blue}
       class="mt-3 p-2 float-right"
-      on:click={onNewTransactionSubmit}
+      on:click={onClickNewTransactionCreate}
     >
-      Submit
+      Create
     </Button>
   </form>
 
