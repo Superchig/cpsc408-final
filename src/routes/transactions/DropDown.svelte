@@ -23,8 +23,6 @@
     const candidateId = filteredAccounts.find((account) => account.full_name === displayValue);
 
     outId = candidateId === undefined ? 0 : candidateId.id!;
-
-    console.log(outId);
   }
 
   const onFocusOut = (event: FocusEvent) => {
