@@ -81,6 +81,14 @@
         } else {
           displayValue = filteredAccounts[selectedIndex].full_name!;
         }
+        selectedIndex = undefined;
+        return;
+      case 'Tab':
+        if (filteredAccounts.length === 1) {
+          displayValue = filteredAccounts[0].full_name!;
+        }
+        selectedIndex = undefined;
+        return;
       default:
         selectedIndex = undefined;
         return;
