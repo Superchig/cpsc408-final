@@ -32,11 +32,11 @@
 
 <Modals>
   <div slot="backdrop" class="backdrop">
-    <div class="bg-gray-600 bg-opacity-50 fixed top-0 bottom-0 w-full backdrop-blur-sm" />
+    <div class="bg-gray-600/50 fixed top-0 bottom-0 w-full backdrop-blur-sm z-30" />
   </div>
 </Modals>
 
-<nav class="shadow-md p-2">
+<nav class="shadow-md p-2 z-20">
   <div class="m-auto max-w-screen-lg">
     <div class="flex justify-between items-center">
       <a
@@ -67,7 +67,9 @@
   </div>
 </nav>
 
-<slot />
+<div class="z-20">
+  <slot />
+</div>
 
 <style>
 </style>
