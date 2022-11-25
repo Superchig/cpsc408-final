@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { getDB } from '$lib/server/db';
 import { findAllAccounts } from '$lib/server/accounts';
-import type { DebitCredit } from '$lib/transaction';
+import type { DebitCredit, Transaction } from '$lib/transaction';
 
 export const load: PageServerLoad = async ({ params }) => {
   const db = getDB();
@@ -34,12 +34,7 @@ export const load: PageServerLoad = async ({ params }) => {
     )
     .all();
 
-  let transactions: {
-    id: number;
-    date: string;
-    description: string;
-    debitsCredits: DebitCredit[];
-  }[] = [];
+  let transactions: Transaction[] = [];
 
   for (const row of transactionRows) {
     if (transactions.length <= 0) {

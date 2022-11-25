@@ -1,6 +1,6 @@
 <script lang="ts">
   import DropDown from './DropDown.svelte';
-
+  import EditTransactionModal from './EditTransactionModal.svelte';
   import type { PageData } from './$types';
   import '$lib/app.css';
   import Button, { ButtonColor } from '$lib/Button.svelte';
@@ -8,7 +8,8 @@
   import ky, { HTTPError } from 'ky';
   import Fa from 'svelte-fa';
   import { faCirclePlus, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-  import type { DebitCredit, NewTransactionData } from '$lib/transaction';
+  import type { DebitCredit, NewTransactionData, Transaction } from '$lib/transaction';
+  import { openModal } from 'svelte-modals';
 
   export let data: PageData;
 
@@ -59,6 +60,10 @@
     }
 
     location.reload();
+  };
+
+  const onClickEditTransaction = (event: Event, transaction: Transaction) => {
+    openModal(EditTransactionModal, structuredClone({ transaction }));
   };
 
   // Error display
@@ -218,8 +223,8 @@
             </span>
             <span
               class="text-yellow-600 hover:text-green-400 hover:cursor-pointer"
-              on:click={(event) => onClickDeleteTransaction(event, transaction.id)}
-              on:keydown={(event) => onClickDeleteTransaction(event, transaction.id)}
+              on:click={(event) => onClickEditTransaction(event, transaction)}
+              on:keydown={(event) => onClickEditTransaction(event, transaction)}
             >
               <Fa icon={faPencil} />
             </span>
