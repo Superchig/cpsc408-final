@@ -7,7 +7,7 @@
   import TextInput from '$lib/TextInput.svelte';
   import ky, { HTTPError } from 'ky';
   import Fa from 'svelte-fa';
-  import { faCirclePlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+  import { faCirclePlus, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
   import type { DebitCredit, NewTransactionData } from '$lib/transaction';
 
   export let data: PageData;
@@ -208,13 +208,20 @@
           />
         </div>
         <div class="grid grid-cols-12 gap-x-3 gap-y-2 max-w-screen-md">
-          <div class="flex invisible group-hover:visible">
+          <div class="flex gap-x-1 invisible group-hover:visible">
             <span
               class="text-red-600 hover:text-red-400 hover:cursor-pointer"
               on:click={(event) => onClickDeleteTransaction(event, transaction.id)}
               on:keydown={(event) => onClickDeleteTransaction(event, transaction.id)}
             >
               <Fa icon={faTrash} />
+            </span>
+            <span
+              class="text-yellow-600 hover:text-green-400 hover:cursor-pointer"
+              on:click={(event) => onClickDeleteTransaction(event, transaction.id)}
+              on:keydown={(event) => onClickDeleteTransaction(event, transaction.id)}
+            >
+              <Fa icon={faPencil} />
             </span>
           </div>
           {#each transaction.debitsCredits as debitCredit}
