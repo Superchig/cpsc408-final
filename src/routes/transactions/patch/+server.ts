@@ -17,7 +17,6 @@ export const PATCH: RequestHandler = async (event) => {
 
     db.prepare('DELETE FROM debit_credit where transaction_id = ?').run(jsonData.id);
 
-    // FIXME(Chris): Use this method in `transactions/new/+server.ts`
     insertDebitCredits(db, jsonData, jsonData.id);
   })();
 

@@ -4,7 +4,7 @@ import type { Database } from 'better-sqlite3';
 export const insertDebitCredits = (
   db: Database,
   jsonData: NewTransactionData,
-  transactionId: number
+  transactionId: number | bigint
 ) => {
   const values_sql = jsonData.debitsCredits.map((_) => '(?, ?, ?)').join(', ');
   const values = jsonData.debitsCredits

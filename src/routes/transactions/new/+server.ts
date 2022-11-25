@@ -2,6 +2,7 @@ import type { RequestHandler } from './$types';
 import { getDB } from '$lib/server/db';
 import type { NewTransactionData } from '$lib/transaction';
 import { error } from '@sveltejs/kit';
+import { insertDebitCredits } from '$lib/server/transaction';
 
 export const POST: RequestHandler = async (event) => {
   const db = getDB();
@@ -46,15 +47,7 @@ export const POST: RequestHandler = async (event) => {
       )
       .run(jsonData.date, jsonData.description);
 
-    const values_sql = jsonData.debitsCredits.map((_) => '(?, ?, ?)').join(', ');
-    const values = jsonData.debitsCredits
-      .map((dc) => [dc.amount, info.lastInsertRowid, dc.accountId])
-      .flat();
-
-    db.prepare(
-      `INSERT INTO debit_credit(amount, transaction_id, account_id)
-       VALUES ${values_sql}`
-    ).run(values);
+    insertDebitCredits(db, jsonData, info.lastInsertRowid);
   })();
 
   return new Response();
