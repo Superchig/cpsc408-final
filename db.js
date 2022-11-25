@@ -14,7 +14,10 @@ if (args[0] == 'create') {
   // https://github.com/WiseLibs/better-sqlite3/blob/HEAD/docs/api.md#execstring---this
   db.exec(schema_sql);
 } else if (args[0] == 'insert') {
-  db.prepare("INSERT INTO account(name) VALUES ('expenses'), ('revenue');").run();
+  db.prepare(
+    `INSERT INTO account(name)
+     VALUES ('assets'), ('liabilities'), ('equity'), ('revenue'), ('expenses');`
+  ).run();
 
   console.log('Data inserted.');
 } else {

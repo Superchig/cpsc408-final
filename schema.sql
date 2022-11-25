@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS debit_credit (
   FOREIGN KEY (account_id) REFERENCES account(id)
 ) STRICT;
 
+-- Triggers
+
 CREATE TRIGGER IF NOT EXISTS account_insert_zero_depth
     AFTER INSERT
     ON account
@@ -48,3 +50,22 @@ BEGIN
     DELETE FROM account_closure
     WHERE ancestor_id = OLD.id AND descendant_id = OLD.id;
 end;
+
+-- Indexes on commonly-queried attributes
+
+CREATE INDEX financial_transaction_date_idx
+    ON financial_transaction(date);
+
+-- Indexes on foreign keys
+
+CREATE INDEX debit_credit_financial_transaction_idx
+    ON debit_credit(transaction_id);
+
+CREATE INDEX debit_credit_account_idx
+    ON debit_credit(account_id);
+
+CREATE INDEX account_closure_ancestor_idx
+    ON account_closure(ancestor_id);
+
+CREATE INDEX account_closure_descendant_idx
+    ON account_closure(descendant_id);
