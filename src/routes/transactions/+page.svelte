@@ -13,8 +13,6 @@
 
   export let data: PageData;
 
-  const ID_FORM = 'new_transaction_form';
-
   const today = new Date();
 
   let jsonData: NewTransactionData = {
@@ -90,7 +88,7 @@
 
   <h1 class="text-2xl mb-3">Transactions</h1>
 
-  <form class="flow-root" id={ID_FORM}>
+  <form class="flow-root">
     <!-- TODO(Chris): Fix bug in which x-ing out the date results in its input
     field changing in width slightly. -->
     <div class="flex mb-3 gap-x-2">
