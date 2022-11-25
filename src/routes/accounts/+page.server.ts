@@ -78,5 +78,20 @@ export const actions: Actions = {
 			     WHERE id IN (${'?,'.repeat(idsToDelete.length - 1)}?)`
       ).run(idsToDelete);
     })();
+  },
+  // NOTE(Chris): Currently, this form action only renames accounts
+  update_account: async (event) => {
+    const data = await event.request.formData();
+
+    const accountId = Number(data.get('account_id'));
+    const newName = data.get('new_name') as string;
+
+    const db = getDB();
+
+    db.prepare(
+      `UPDATE account
+       SET name = ?
+       WHERE id = ?`
+    ).run(newName, accountId);
   }
 };

@@ -14,7 +14,7 @@
 
 <input
   type="text"
-  class={'bg-blue-200 rounded-lg shadow-md hover:bg-blue-100 ' + className}
+  class={'bg-blue-200 disabled:bg-gray-200 rounded-lg shadow-md hover:bg-blue-100 ' + className}
   {name}
   {disabled}
   {placeholder}

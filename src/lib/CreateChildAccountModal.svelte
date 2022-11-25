@@ -6,24 +6,20 @@
   import TextInput from './TextInput.svelte';
   import Button, { ButtonColor } from './Button.svelte';
   import { createChildAccount } from '$lib/routes';
+  import { submitWithEnter } from './util';
 
   // Provided by Modals
   export let isOpen: boolean;
 
   export let parentAccount: Account;
 
-  let newAccountName = '';
+  let form: HTMLFormElement;
 
-  const onKeyDownInFieldName = (event: KeyboardEvent) => {
-    if (event.key == 'Enter') {
-      const form = document.getElementById('create_child_account') as HTMLFormElement;
-      form.submit();
-    }
-  };
+  let newAccountName = '';
 </script>
 
 <BaseModal {isOpen}>
-  <form id="create_child_account" method="POST" action={createChildAccount()}>
+  <form method="POST" action={createChildAccount()} bind:this={form}>
     <h2 class="text-2xl mb-2">Create child account</h2>
 
     <hr class="mb-3" />
@@ -49,7 +45,7 @@
       <label for="new_account_name" class="text-right py-2 mb-2">Name:</label>
       <TextInput
         bind:value={newAccountName}
-        on:keydown={onKeyDownInFieldName}
+        on:keydown={(event) => submitWithEnter(event, form)}
         name="new_account_name"
         class="px-3 py-2 mb-3"
       />

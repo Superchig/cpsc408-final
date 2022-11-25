@@ -4,12 +4,13 @@
   import '$lib/app.css';
   import ky from 'ky';
   import Fa from 'svelte-fa';
-  import { faTrash, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+  import { faTrash, faCirclePlus, faPencil } from '@fortawesome/free-solid-svg-icons';
   import { openModal } from 'svelte-modals';
   import CreateChildAccountModal from '$lib/CreateChildAccountModal.svelte';
   import TextInput from '$lib/TextInput.svelte';
   import Button, { ButtonColor } from '$lib/Button.svelte';
   import DeleteAccountModal from '$lib/DeleteAccountModal.svelte';
+  import EditAccountModal from './EditAccountModal.svelte';
 
   export let data: PageData;
 
@@ -26,6 +27,10 @@
 
   const onDeleteClick = async (event: Event, account: Account) => {
     openModal(DeleteAccountModal, structuredClone({ account }));
+  };
+
+  const onEditClick = async (event: Event, account: Account) => {
+    openModal(EditAccountModal, structuredClone({ account }));
   };
 
   // Error display
@@ -66,6 +71,13 @@
                 {account.full_name}
               </p>
               <div class="float-right flex">
+                <span
+                  on:click={(event) => onEditClick(event, account)}
+                  on:keypress={(event) => onEditClick(event, account)}
+                  class="invisible p-1 text-yellow-600 group-hover:visible hover:text-yellow-400 hover:cursor-pointer"
+                >
+                  <Fa icon={faPencil} />
+                </span>
                 <span
                   on:click={(event) => onDeleteClick(event, account)}
                   on:keypress={(event) => onDeleteClick(event, account)}
