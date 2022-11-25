@@ -1,12 +1,10 @@
 <script lang="ts">
   import type { Account } from '$lib/account';
-  import type { Keyboard } from '@playwright/test';
-  import { element } from 'svelte/internal';
 
   export let accounts: Account[];
   export let outId: number;
 
-  let displayValue = '';
+  let displayValue = outId === 0 ? '' : accounts.find((a) => a.id === outId)!.full_name!;
   let isMenuOpen = false;
   let hasFocusedTextInput = false;
   let isFocusedOnTextInput = false;

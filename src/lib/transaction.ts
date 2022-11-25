@@ -3,11 +3,8 @@ export interface DebitCredit {
   amount: number;
 }
 
-export interface Transaction {
+export interface Transaction extends NewTransactionData {
   id: number;
-  date: string;
-  description: string;
-  debitsCredits: DebitCredit[];
 }
 
 export interface NewTransactionData {

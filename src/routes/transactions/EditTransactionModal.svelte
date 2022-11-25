@@ -6,10 +6,16 @@
   import BaseModal from '$lib/BaseModal.svelte';
   import Button, { ButtonColor } from '$lib/Button.svelte';
   import type { Transaction } from '$lib/transaction';
+  import TransactionForm from './TransactionForm.svelte';
 
   export let isOpen: boolean;
 
   export let transaction: Transaction;
+  export let accounts: Account[];
+
+  const onClickSubmit = () => {
+    console.log(transaction);
+  };
 </script>
 
 <BaseModal {isOpen}>
@@ -17,18 +23,12 @@
 
   <hr class="my-3" />
 
-  <p>You are now editing an existing transaction.</p>
+  <TransactionForm bind:jsonData={transaction} {accounts} {onClickSubmit} />
 
   <hr class="my-3" />
 
-  <form method="POST" class="actions flow-root">
-    <input type="number" name="transaction_id" hidden value={transaction.id} />
-
-    <Button on:click={closeModal} color={ButtonColor.SwapRed} class="p-2 float-left">Cancel</Button>
-    <Button type="submit" color={ButtonColor.Red} class="p-2 float-right">
-      Update Transaction
-    </Button>
-  </form>
+  <Button on:click={closeModal} color={ButtonColor.SwapRed} class="p-2 float-left">Cancel</Button>
+  <Button on:click={onClickSubmit} color={ButtonColor.Red} class="p-2 float-right">Update Transaction</Button>
 </BaseModal>
 
 <style>

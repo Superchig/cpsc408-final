@@ -1,7 +1,6 @@
 <script lang="ts">
   import DropDown from './DropDown.svelte';
   import '$lib/app.css';
-  import Button, { ButtonColor } from '$lib/Button.svelte';
   import Fa from 'svelte-fa';
   import { faCirclePlus, faTrash } from '@fortawesome/free-solid-svg-icons';
   import type { DebitCredit, NewTransactionData } from '$lib/transaction';
@@ -123,14 +122,7 @@
       />
     {/each}
   </div>
-  <Button
-    type="button"
-    color={ButtonColor.Blue}
-    class="mt-3 p-2 float-right"
-    on:click={onClickSubmit}
-  >
-    Create
-  </Button>
+  <slot />
 </form>
 
 <style>

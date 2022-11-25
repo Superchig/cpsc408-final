@@ -9,6 +9,7 @@
   import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
   import type { DebitCredit, NewTransactionData, Transaction } from '$lib/transaction';
   import { openModal } from 'svelte-modals';
+  import Button, { ButtonColor } from '$lib/Button.svelte';
 
   export let data: PageData;
 
@@ -47,7 +48,7 @@
   };
 
   const onClickEditTransaction = (event: Event, transaction: Transaction) => {
-    openModal(EditTransactionModal, structuredClone({ transaction }));
+    openModal(EditTransactionModal, structuredClone({ transaction, accounts: data.accounts }));
   };
 
   // Error display
@@ -78,7 +79,16 @@
     bind:jsonData
     accounts={data.accounts}
     onClickSubmit={onClickNewTransactionCreate}
-  />
+  >
+    <Button
+      type="button"
+      color={ButtonColor.Blue}
+      class="mt-3 p-2 float-right"
+      on:click={onClickNewTransactionCreate}
+    >
+      Create
+    </Button>
+  </TransactionForm>
 
   <h2 class="text-xl mb-2">All Transactions</h2>
 
