@@ -2,13 +2,22 @@ import type { Account } from "$lib/account";
 import type { Database } from "better-sqlite3";
 
 export function findAllAccounts(db: Database): Account[] {
+  // NOTE(Chris): We obtain the full names (all of the ancestors + the specific name)
+  // for all of the accounts with this query.
+  // However, SQLite does not guarantee the order of concatenated elements when using
+  // GROUP_CONCAT, so we need to use this sub-query within a sub-query.
+  // https://stackoverflow.com/questions/1897352/sqlite-group-concat-ordering
   const results: Account[] = db
     .prepare(
-      `SELECT descendant_id AS id, GROUP_CONCAT(account.name, ':') AS full_name
-             FROM account_closure
-                 INNER JOIN account ON account_closure.ancestor_id = account.id
-             GROUP BY descendant_id
-             ORDER BY ancestor_id, full_name;`
+      `SELECT a.id,
+           (SELECT GROUP_CONCAT(ordered_ancestor.name, ':')
+            FROM (SELECT account.name AS name
+                  FROM account_closure
+                      INNER JOIN account ON account.id = account_closure.ancestor_id
+                  WHERE descendant_id = a.id
+                  ORDER BY depth DESC) AS ordered_ancestor) AS full_name
+       FROM account a
+       ORDER BY full_name;`
     )
     .all();
 
