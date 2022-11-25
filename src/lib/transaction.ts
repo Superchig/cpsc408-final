@@ -3,7 +3,7 @@ export interface DebitCredit {
   amount: number;
 }
 
-export interface NewTransactionData {
+export interface Transaction {
   date: string;
   description: string;
   debitsCredits: DebitCredit[];

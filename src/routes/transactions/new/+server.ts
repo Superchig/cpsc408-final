@@ -1,12 +1,12 @@
 import type { RequestHandler } from './$types';
 import { getDB } from '$lib/server/db';
-import type { NewTransactionData } from '$lib/transaction';
+import type { Transaction } from '$lib/transaction';
 import { error } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async (event) => {
   const db = getDB();
 
-  const jsonData: NewTransactionData = await event.request.json();
+  const jsonData: Transaction = await event.request.json();
 
   // Validate description
 
