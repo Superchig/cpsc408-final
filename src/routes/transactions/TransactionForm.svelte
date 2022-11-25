@@ -4,12 +4,17 @@
   import Button, { ButtonColor } from '$lib/Button.svelte';
   import Fa from 'svelte-fa';
   import { faCirclePlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-  import type { DebitCredit, NewTransactionData, Transaction } from '$lib/transaction';
+  import type { DebitCredit, NewTransactionData } from '$lib/transaction';
   import type { Account } from '$lib/account';
 
   export let accounts: Account[];
   export let onClickSubmit: () => void;
   export let jsonData: NewTransactionData;
+
+  // NOTE(Chris): This is used to associate the label with the description text input.
+  const ID_DESCRIPTION = 'description';
+
+  let elemTextInput: HTMLInputElement;
 
   const onClickNewDebitCredit = (event: Event) => {
     jsonData.debitsCredits.push({
@@ -23,10 +28,6 @@
   const onClickDeleteDebitCredit = (event: Event, debitCredit: DebitCredit) => {
     jsonData.debitsCredits = jsonData.debitsCredits.filter((dc) => dc != debitCredit);
   };
-
-  // Error display
-
-  let error: any | null = null;
 </script>
 
   <form class="flow-root">
@@ -46,9 +47,10 @@
         <!-- TODO(Chris): Expand TextInput into text area when there's enough text -->
         <input
           type="text"
-          id="description"
+          id={ID_DESCRIPTION}
           name="description"
           bind:value={jsonData.description}
+          bind:this={elemTextInput}
           placeholder=" "
           class="peer px-2 pt-2 pb-1 flex-auto shadow-sm border
                  rounded-md hover:border-gray-700 focus:border-blue-700 outline-none"
@@ -62,7 +64,7 @@
         <!-- https://www.youtube.com/watch?v=nJzKi6oIvBA -->
         <!-- https://flowbite.com/docs/forms/floating-label/ -->
         <label
-          for="description"
+          for={ID_DESCRIPTION}
           class="absolute text-gray-500 bg-white transition-all duration-500
                  left-2.5
                  peer-placeholder-shown:translate-y-2 peer-focus:-translate-y-3 -translate-y-3
@@ -70,10 +72,10 @@
                  peer-placeholder-shown:translate-x-0 peer-focus:-translate-x-3 -translate-x-3
                  hover:cursor-text"
           on:click={(event) => {
-            document.getElementById('description')?.click();
+            elemTextInput.click();
           }}
           on:keydown={(event) => {
-            document.getElementById('description')?.click();
+            elemTextInput.click();
           }}
         >
           Description
