@@ -1,4 +1,4 @@
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { getDB } from '$lib/server/db';
 import { findAllAccounts } from '$lib/server/accounts';
 import type { DebitCredit, Transaction } from '$lib/transaction';
