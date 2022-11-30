@@ -1,4 +1,6 @@
 <script lang="ts">
+  import MoneyInput from './MoneyInput.svelte';
+
   import DropDown from './DropDown.svelte';
   import '$lib/app.css';
   import Fa from 'svelte-fa';
@@ -110,16 +112,7 @@
         <DropDown bind:outId={debitCredit.accountId} {accounts} />
       </div>
       <!-- TODO(Chris): Check that all of the amounts add up to 0 -->
-      <input
-        type="number"
-        bind:value={debitCredit.amount}
-        class="col-span-2 px-2 py-1 bg-orange-100 hover:bg-orange-50 rounded-lg shadow-sm"
-        on:keydown={(event) => {
-          if (event.key == 'Enter') {
-            onClickSubmit();
-          }
-        }}
-      />
+      <MoneyInput bind:debitCredit onEnterDown={onClickSubmit} />
     {/each}
   </div>
   <slot />
