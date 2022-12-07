@@ -71,8 +71,6 @@
     return Boolean(params.date) || Boolean(params.accountId) || Boolean(params.description);
   };
 
-  console.log(hasSearched());
-
   // Error display
 
   let error: any | null = null;
