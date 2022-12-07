@@ -60,6 +60,7 @@
   const candidateAccountId: string | null = searchParams.get('account_id');
 
   let searchAccountId: number = candidateAccountId === null ? 0 : Number(candidateAccountId);
+  let elemSearchForm: HTMLFormElement;
 
   const hasSearched = (): boolean => {
     // TODO(Chris): Refactor the gathering of searchParams here into a function, reuse it
@@ -126,6 +127,7 @@
 
   <form
     class="flex flex-col gap-2 p-3 rounded-md shadow-md outline outline-1 outline-gray-400 mb-7 max-w-xl mx-auto"
+    bind:this={elemSearchForm}
   >
     <h3 class="text-2xl">Filters</h3>
 
@@ -181,65 +183,78 @@
 
     <div class="flow">
       <Button type="submit" color={ButtonColor.Blue} class="p-2 mt-2 float-right">Search</Button>
-      <Button type="reset" color={ButtonColor.SwapBlue} class="p-2 mt-2 float-left">Clear</Button>
+      <Button
+        color={ButtonColor.SwapBlue}
+        class="p-2 mt-2 float-left"
+        on:click={() => {
+          elemSearchForm.reset();
+          elemSearchForm.submit();
+        }}
+      >
+        Clear
+      </Button>
     </div>
   </form>
 
   <div class="flex flex-col gap-y-10">
-    {#each data.transactions as transaction}
-      <form class="flow-root group">
-        <div class="flex mb-3 gap-x-2">
-          <!-- https://stackoverflow.com/questions/6982692/how-to-set-input-type-dates-default-value-to-today -->
-          <input
-            type="date"
-            value={transaction.date}
-            class="border rounded-md p-1 bg-gray-200 hover:bg-gray-100 flex-none shadow-sm"
-            disabled
-          />
-          <TextInput
-            name="description"
-            class="px-2 py-1 flex-auto shadow-sm"
-            value={transaction.description}
-            disabled
-          />
-        </div>
-        <div class="grid grid-cols-12 gap-x-3 gap-y-2 max-w-screen-md">
-          <div class="flex gap-x-1 invisible group-hover:visible">
-            <span
-              class="text-red-600 hover:text-red-400 hover:cursor-pointer"
-              on:click={(event) => onClickDeleteTransaction(event, transaction.id)}
-              on:keydown={(event) => onClickDeleteTransaction(event, transaction.id)}
-            >
-              <Fa icon={faTrash} />
-            </span>
-            <span
-              class="text-yellow-600 hover:text-green-400 hover:cursor-pointer"
-              on:click={(event) => onClickEditTransaction(event, transaction)}
-              on:keydown={(event) => onClickEditTransaction(event, transaction)}
-            >
-              <Fa icon={faPencil} />
-            </span>
-          </div>
-          {#each transaction.debitsCredits as debitCredit}
-            <select
-              class="col-start-4 col-span-7 px-2 py-1 rounded-lg shadow-sm bg-gray-200 hover:bg-gray-100"
-              value={debitCredit.accountId}
-              disabled
-            >
-              {#each data.accounts as account}
-                <option value={account.id}>{account.full_name}</option>
-              {/each}
-            </select>
+    {#if data.transactions.length <= 0}
+      <p>No results found.</p>
+    {:else}
+      {#each data.transactions as transaction}
+        <form class="flow-root group">
+          <div class="flex mb-3 gap-x-2">
+            <!-- https://stackoverflow.com/questions/6982692/how-to-set-input-type-dates-default-value-to-today -->
             <input
-              type="number"
-              value={debitCredit.amount}
-              class="col-span-2 px-2 py-1 bg-orange-100 hover:bg-orange-50 rounded-lg shadow-sm"
+              type="date"
+              value={transaction.date}
+              class="border rounded-md p-1 bg-gray-200 hover:bg-gray-100 flex-none shadow-sm"
               disabled
             />
-          {/each}
-        </div>
-      </form>
-    {/each}
+            <TextInput
+              name="description"
+              class="px-2 py-1 flex-auto shadow-sm"
+              value={transaction.description}
+              disabled
+            />
+          </div>
+          <div class="grid grid-cols-12 gap-x-3 gap-y-2 max-w-screen-md">
+            <div class="flex gap-x-1 invisible group-hover:visible">
+              <span
+                class="text-red-600 hover:text-red-400 hover:cursor-pointer"
+                on:click={(event) => onClickDeleteTransaction(event, transaction.id)}
+                on:keydown={(event) => onClickDeleteTransaction(event, transaction.id)}
+              >
+                <Fa icon={faTrash} />
+              </span>
+              <span
+                class="text-yellow-600 hover:text-green-400 hover:cursor-pointer"
+                on:click={(event) => onClickEditTransaction(event, transaction)}
+                on:keydown={(event) => onClickEditTransaction(event, transaction)}
+              >
+                <Fa icon={faPencil} />
+              </span>
+            </div>
+            {#each transaction.debitsCredits as debitCredit}
+              <select
+                class="col-start-4 col-span-7 px-2 py-1 rounded-lg shadow-sm bg-gray-200 hover:bg-gray-100"
+                value={debitCredit.accountId}
+                disabled
+              >
+                {#each data.accounts as account}
+                  <option value={account.id}>{account.full_name}</option>
+                {/each}
+              </select>
+              <input
+                type="number"
+                value={debitCredit.amount}
+                class="col-span-2 px-2 py-1 bg-orange-100 hover:bg-orange-50 rounded-lg shadow-sm"
+                disabled
+              />
+            {/each}
+          </div>
+        </form>
+      {/each}
+    {/if}
   </div>
 </div>
 
