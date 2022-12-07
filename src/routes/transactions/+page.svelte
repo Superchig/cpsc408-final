@@ -112,7 +112,7 @@
       name="date"
       id="search_date"
       value={searchParams.get('date')}
-      class="border rounded-md p-1 bg-gray-200 hover:bg-gray-100 shadow-sm"
+      class="font-mono border rounded-md p-1 bg-gray-200 hover:bg-gray-100 shadow-sm"
     />
 
     <!-- svelte-ignore a11y-label-has-associated-control -->
@@ -124,6 +124,7 @@
         bind:outId={searchAccountId}
         class=""
         menuClass="translate-y-1 z-30"
+        isEmptyAllowed={true}
       />
     </div>
 

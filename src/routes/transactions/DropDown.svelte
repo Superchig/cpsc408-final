@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { Account } from '$lib/account';
 
+  export { className as class };
   export let accounts: Account[];
   export let outId: number;
   export let menuClass = '';
   export let name: string | undefined = undefined;
   export let id: string | undefined = undefined;
-  export { className as class };
+  export let isEmptyAllowed = false;
 
   let className = '';
   let displayValue = outId === 0 ? '' : accounts.find((a) => a.id === outId)!.full_name!;
@@ -113,7 +114,10 @@
   {id}
   class={'flex-auto px-2 py-1 bg-gray-200 hover:bg-gray-100 rounded-lg shadow-sm peer ' +
     className +
-    (outId !== 0 || !hasFocusedTextInput || isFocusedOnTextInput
+    (outId !== 0 ||
+    (displayValue.length === 0 && isEmptyAllowed) ||
+    !hasFocusedTextInput ||
+    isFocusedOnTextInput
       ? ' '
       : 'outline outline-1 outline-red-600 bg-yellow-300')}
   on:focusin={() => {
