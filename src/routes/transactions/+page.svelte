@@ -53,13 +53,25 @@
     openModal(EditTransactionModal, structuredClone({ transaction, accounts: data.accounts }));
   };
 
-  // Search fields
+  // Search functionality
 
   const searchParams = new URLSearchParams($page.url.search);
 
   const candidateAccountId: string | null = searchParams.get('account_id');
 
   let searchAccountId: number = candidateAccountId === null ? 0 : Number(candidateAccountId);
+
+  const hasSearched = (): boolean => {
+    const params = {
+      date: searchParams.get('date'),
+      accountId: Number(searchParams.get('account_id')),
+      description: searchParams.get('description')
+    };
+
+    return Boolean(params.date) || Boolean(params.accountId) || Boolean(params.description);
+  };
+
+  console.log(hasSearched());
 
   // Error display
 
@@ -100,16 +112,22 @@
     </Button>
   </TransactionForm>
 
-  <h2 class="text-2xl mb-3">All Transactions</h2>
+  <h2 class="text-2xl mb-3">
+    {#if hasSearched()}
+      Matching Transactions
+    {:else}
+      All Transactions
+    {/if}
+  </h2>
 
   <form
     class="flex flex-col gap-2 p-3 rounded-md shadow-md outline outline-1 outline-gray-400 mb-7 max-w-xl mx-auto"
   >
     <h3 class="text-2xl">Filters</h3>
 
-    <hr />
+    <hr class="mb-1" />
 
-    <div class="grid grid-cols-2 gap-3" style="grid-template-columns: 6rem auto;">
+    <div class="grid grid-cols-2 gap-3 mb-1" style="grid-template-columns: 6rem auto;">
       <label for="search_date" class="text-right shrink py-1">Date:</label>
       <input
         type="date"
