@@ -62,13 +62,19 @@
   let searchAccountId: number = candidateAccountId === null ? 0 : Number(candidateAccountId);
 
   const hasSearched = (): boolean => {
+    // TODO(Chris): Refactor the gathering of searchParams here into a function, reuse it
+    // in the corresponding +page.server.ts
     const params = {
       date: searchParams.get('date'),
       accountId: Number(searchParams.get('account_id')),
+      amount: Number(searchParams.get('amount')),
       description: searchParams.get('description')
     };
 
-    return Boolean(params.date) || Boolean(params.accountId) || Boolean(params.description);
+    return Object.values(params).reduce(
+      (soFar, propertyValue) => soFar || Boolean(propertyValue),
+      false
+    );
   };
 
   // Error display
@@ -145,6 +151,17 @@
           class="w-full"
           menuClass="translate-y-1 z-30"
           isEmptyAllowed={true}
+        />
+      </div>
+
+      <label for="search_amount" class="text-right shrink py-1">Amount:</label>
+      <div>
+        <input
+          type="number"
+          name="amount"
+          id="search_amount"
+          value={searchParams.get('amount')}
+          class="px-2 py-1 w-full bg-gray-200 hover:bg-gray-100 rounded-lg shadow-sm"
         />
       </div>
 
