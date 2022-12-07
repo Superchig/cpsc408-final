@@ -46,7 +46,7 @@
     {/if}
   </div>
 
-  <h1 class="text-2xl mb-3">Accounts</h1>
+  <h1 class="text-3xl mb-3">Accounts</h1>
 
   <table class="table-auto bg-white">
     <thead>

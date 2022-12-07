@@ -83,7 +83,7 @@
     {/if}
   </div>
 
-  <h1 class="text-2xl mb-3">Transactions</h1>
+  <h1 class="text-3xl mb-3">Transactions</h1>
 
   <TransactionForm
     bind:jsonData
