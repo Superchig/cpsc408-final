@@ -3,7 +3,12 @@
 
   export let accounts: Account[];
   export let outId: number;
+  export let menuClass = '';
+  export let name: string | undefined = undefined;
+  export let id: string | undefined = undefined;
+  export { className as class };
 
+  let className = '';
   let displayValue = outId === 0 ? '' : accounts.find((a) => a.id === outId)!.full_name!;
   let isMenuOpen = false;
   let hasFocusedTextInput = false;
@@ -104,7 +109,10 @@
 
 <input
   type="text"
+  {name}
+  {id}
   class={'flex-auto px-2 py-1 bg-gray-200 hover:bg-gray-100 rounded-lg shadow-sm peer ' +
+    className +
     (outId !== 0 || !hasFocusedTextInput || isFocusedOnTextInput
       ? ' '
       : 'outline outline-1 outline-red-600 bg-yellow-300')}
@@ -126,7 +134,7 @@
 {#if isMenuOpen}
   {#if filteredAccounts.length > 0}
     <ul
-      class="absolute translate-y-9 p-2 bg-white rounded-md shadow-md"
+      class={'absolute p-2 bg-white rounded-md shadow-md ' + menuClass}
       bind:this={listElem}
       on:mouseleave={onMouseLeave}
     >

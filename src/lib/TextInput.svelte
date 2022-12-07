@@ -1,10 +1,11 @@
 <script lang="ts">
   import '$lib/app.css';
 
-  export let value: string | undefined = '';
+  export let value: string | null | undefined = '';
   export let name: string | undefined = undefined;
   export let disabled: boolean | null | undefined = undefined;
   export let placeholder: string | null | undefined = undefined;
+  export let autocomplete: 'off' | 'on' = 'on';
 
   let className = '';
 
@@ -18,6 +19,7 @@
   {name}
   {disabled}
   {placeholder}
+  {autocomplete}
   bind:value
   on:keydown
 />

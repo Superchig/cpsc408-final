@@ -13,7 +13,7 @@
 <script lang="ts">
   import '$lib/app.css';
 
-  export let type: string | undefined = undefined;
+  export let type: "button" | "menu" | "submit" | "reset" | undefined = undefined;
   export let color: ButtonColor | undefined = undefined;
 
   let className = '';

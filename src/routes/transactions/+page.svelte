@@ -7,9 +7,11 @@
   import ky, { HTTPError } from 'ky';
   import Fa from 'svelte-fa';
   import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-  import type { DebitCredit, NewTransactionData, Transaction } from '$lib/transaction';
+  import type { NewTransactionData, Transaction } from '$lib/transaction';
   import { openModal } from 'svelte-modals';
   import Button, { ButtonColor } from '$lib/Button.svelte';
+  import DropDown from './DropDown.svelte';
+  import { page } from '$app/stores';
 
   export let data: PageData;
 
@@ -51,6 +53,14 @@
     openModal(EditTransactionModal, structuredClone({ transaction, accounts: data.accounts }));
   };
 
+  // Search fields
+
+  const searchParams = new URLSearchParams($page.url.search);
+
+  const candidateAccountId: string | null = searchParams.get('account_id');
+
+  let searchAccountId: number = candidateAccountId === null ? 0 : Number(candidateAccountId);
+
   // Error display
 
   let error: any | null = null;
@@ -91,6 +101,48 @@
   </TransactionForm>
 
   <h2 class="text-xl mb-2">All Transactions</h2>
+
+  <form
+    class="grid grid-cols-2 gap-3 p-3 rounded-md shadow-md outline outline-1 outline-gray-400 mb-3 max-w-xl mx-auto"
+    style="grid-template-columns: 6rem auto;"
+  >
+    <label for="search_date" class="text-right shrink py-1">Date:</label>
+    <input
+      type="date"
+      name="date"
+      id="search_date"
+      value={searchParams.get('date')}
+      class="border rounded-md p-1 bg-gray-200 hover:bg-gray-100 shadow-sm"
+    />
+
+    <!-- svelte-ignore a11y-label-has-associated-control -->
+    <label for="search_account" class="text-right shrink py-1">Account:</label>
+    <div>
+      <DropDown
+        accounts={data.accounts}
+        id="search_account"
+        bind:outId={searchAccountId}
+        class=""
+        menuClass="translate-y-1 z-30"
+      />
+    </div>
+
+    <input type="number" value={searchAccountId} name="account_id" hidden />
+
+    <!-- svelte-ignore a11y-label-has-associated-control -->
+    <label class="text-right shrink py-1">Description:</label>
+    <TextInput
+      name="description"
+      value={searchParams.get('description')}
+      class="px-2 py-1"
+      autocomplete="off"
+    />
+
+    <div class="col-span-2 flow">
+      <Button type="submit" color={ButtonColor.Blue} class="p-2 mt-2 float-right">Search</Button>
+      <Button type="reset" color={ButtonColor.SwapBlue} class="p-2 mt-2 float-left">Clear</Button>
+    </div>
+  </form>
 
   <div class="flex flex-col gap-y-10">
     {#each data.transactions as transaction}

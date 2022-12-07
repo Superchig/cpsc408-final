@@ -107,7 +107,7 @@
         </span>
       </div>
       <div class="col-start-4 col-span-7 flex">
-        <DropDown bind:outId={debitCredit.accountId} {accounts} />
+        <DropDown bind:outId={debitCredit.accountId} {accounts} menuClass="translate-y-9" />
       </div>
       <!-- TODO(Chris): Check that all of the amounts add up to 0 -->
       <input
