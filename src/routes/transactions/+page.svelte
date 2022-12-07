@@ -100,46 +100,53 @@
     </Button>
   </TransactionForm>
 
-  <h2 class="text-xl mb-2">All Transactions</h2>
+  <h2 class="text-2xl mb-3">All Transactions</h2>
 
   <form
-    class="grid grid-cols-2 gap-3 p-3 rounded-md shadow-md outline outline-1 outline-gray-400 mb-3 max-w-xl mx-auto"
-    style="grid-template-columns: 6rem auto;"
+    class="flex flex-col gap-2 p-3 rounded-md shadow-md outline outline-1 outline-gray-400 mb-7 max-w-xl mx-auto"
   >
-    <label for="search_date" class="text-right shrink py-1">Date:</label>
-    <input
-      type="date"
-      name="date"
-      id="search_date"
-      value={searchParams.get('date')}
-      class="font-mono border rounded-md p-1 bg-gray-200 hover:bg-gray-100 shadow-sm"
-    />
+    <h3 class="text-2xl">Filters</h3>
 
-    <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label for="search_account" class="text-right shrink py-1">Account:</label>
-    <div>
-      <DropDown
-        accounts={data.accounts}
-        id="search_account"
-        bind:outId={searchAccountId}
-        class=""
-        menuClass="translate-y-1 z-30"
-        isEmptyAllowed={true}
+    <hr />
+
+    <div class="grid grid-cols-2 gap-3" style="grid-template-columns: 6rem auto;">
+      <label for="search_date" class="text-right shrink py-1">Date:</label>
+      <input
+        type="date"
+        name="date"
+        id="search_date"
+        value={searchParams.get('date')}
+        class="font-mono border rounded-md p-1 bg-gray-200 hover:bg-gray-100 shadow-sm"
+      />
+
+      <!-- svelte-ignore a11y-label-has-associated-control -->
+      <label for="search_account" class="text-right shrink py-1">Account:</label>
+      <div>
+        <DropDown
+          accounts={data.accounts}
+          id="search_account"
+          bind:outId={searchAccountId}
+          class="w-full"
+          menuClass="translate-y-1 z-30"
+          isEmptyAllowed={true}
+        />
+      </div>
+
+      <input type="number" value={searchAccountId} name="account_id" hidden />
+
+      <!-- svelte-ignore a11y-label-has-associated-control -->
+      <label class="text-right shrink py-1">Description:</label>
+      <TextInput
+        name="description"
+        value={searchParams.get('description')}
+        class="px-2 py-1"
+        autocomplete="off"
       />
     </div>
 
-    <input type="number" value={searchAccountId} name="account_id" hidden />
+    <hr />
 
-    <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label class="text-right shrink py-1">Description:</label>
-    <TextInput
-      name="description"
-      value={searchParams.get('description')}
-      class="px-2 py-1"
-      autocomplete="off"
-    />
-
-    <div class="col-span-2 flow">
+    <div class="flow">
       <Button type="submit" color={ButtonColor.Blue} class="p-2 mt-2 float-right">Search</Button>
       <Button type="reset" color={ButtonColor.SwapBlue} class="p-2 mt-2 float-left">Clear</Button>
     </div>
