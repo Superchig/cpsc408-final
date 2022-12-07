@@ -112,6 +112,7 @@
   type="text"
   {name}
   {id}
+  autocomplete="off"
   class={'flex-auto px-2 py-1 bg-gray-200 hover:bg-gray-100 rounded-lg shadow-sm peer ' +
     className +
     (outId !== 0 ||
