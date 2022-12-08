@@ -79,7 +79,6 @@ export const load: PageServerLoad = async (event) => {
   if (sqlConditions.length > 0) {
     sqlBeforeSubstitution += '\n';
 
-    // FIXME(Chris): See if you can remove the space after the AND
     sqlBeforeSubstitution += 'WHERE ' + sqlConditions.join('\n  AND ');
   }
 
