@@ -38,22 +38,19 @@ export const load: PageServerLoad = async (event) => {
 
   if (searchParams.accountId) {
     bindParams.account_id = searchParams.accountId;
-    subQueryConditions.push('debit_credit.account_id = $account_id');
+    subQueryConditions.push('account_id = $account_id');
   }
 
   if (searchParams.amount) {
     bindParams.amount = searchParams.amount;
-    subQueryConditions.push('debit_credit.amount = $amount');
+    subQueryConditions.push('debit_credit_amount = $amount');
   }
 
   // Combine SQL conditions for the sub-query, if necessary
   if (subQueryConditions.length > 0) {
-    // FIXME(Chris): Use table view for triple-join here
     let conditionWithSubQuery = `financial_transaction.id IN
                                      (SELECT DISTINCT transaction_id
-                                      FROM financial_transaction
-                                               INNER JOIN debit_credit on financial_transaction.id = debit_credit.transaction_id
-                                               INNER JOIN account on debit_credit.account_id = account.id
+                                      FROM full_transaction_view
                                       WHERE `;
 
     conditionWithSubQuery += subQueryConditions.join(' AND ');
@@ -65,6 +62,7 @@ export const load: PageServerLoad = async (event) => {
 
   // Create SQL query with variables for substitution
 
+  // FIXME(Chris): Use table view for triple-join here
   let sqlBeforeSubstitution = `SELECT financial_transaction.id AS transaction_id,
                                       financial_transaction.description AS transaction_description,
                                       financial_transaction.date AS transaction_date,

@@ -51,6 +51,20 @@ BEGIN
     WHERE ancestor_id = OLD.id AND descendant_id = OLD.id;
 end;
 
+-- Create view - Represent all of the debit/credits for a transaction,
+-- with associated information on the relevant accounts and transactions
+
+CREATE VIEW full_transaction_view AS
+SELECT financial_transaction.id AS transaction_id,
+       financial_transaction.description AS transaction_description,
+       financial_transaction.date AS transaction_date,
+       debit_credit.id AS debit_credit_id,
+       debit_credit.amount AS debit_credit_amount,
+       debit_credit.account_id
+FROM financial_transaction
+         INNER JOIN debit_credit on financial_transaction.id = debit_credit.transaction_id
+         INNER JOIN account on debit_credit.account_id = account.id;
+
 -- Indexes on commonly-queried attributes
 
 CREATE INDEX financial_transaction_date_idx
