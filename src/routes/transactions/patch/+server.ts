@@ -11,9 +11,10 @@ export const PATCH: RequestHandler = async (event) => {
   db.transaction(() => {
     db.prepare(
       `UPDATE financial_transaction
-       SET description = ?
+       SET description = ?,
+           date = ?
        WHERE id = ?`
-    ).run(jsonData.description, jsonData.id);
+    ).run(jsonData.description, jsonData.date, jsonData.id);
 
     db.prepare('DELETE FROM debit_credit where transaction_id = ?').run(jsonData.id);
 
