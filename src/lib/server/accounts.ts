@@ -26,6 +26,7 @@ export function findAllAccountsIdName(db: Database): Account[] {
 
 export function findAllAccountsIdNameBalance(db: Database): Account[] {
   const results: Account[] = db
+    // https://www.sqlitetutorial.net/sqlite-functions/sqlite-coalesce/
     .prepare(
       `SELECT a.id                                                 AS id,
            (SELECT GROUP_CONCAT(ordered_ancestor.name, ':')
