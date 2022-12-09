@@ -1,12 +1,12 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { getDB } from '$lib/server/db';
-import { findAllAccounts } from '$lib/server/accounts';
+import { findAllAccountsIdNameBalance } from '$lib/server/accounts';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async () => {
   const db = getDB();
 
-  const results = findAllAccounts(db);
+  const results = findAllAccountsIdNameBalance(db);
 
   return structuredClone({
     accounts: results

@@ -1,7 +1,7 @@
-import type { Account } from "$lib/account";
-import type { Database } from "better-sqlite3";
+import type { Account } from '$lib/account';
+import type { Database } from 'better-sqlite3';
 
-export function findAllAccounts(db: Database): Account[] {
+export function findAllAccountsIdName(db: Database): Account[] {
   // NOTE(Chris): We obtain the full names (all of the ancestors + the specific name)
   // for all of the accounts with this query.
   // However, SQLite does not guarantee the order of concatenated elements when using
@@ -21,5 +21,30 @@ export function findAllAccounts(db: Database): Account[] {
     )
     .all();
 
-    return results;
+  return results;
+}
+
+export function findAllAccountsIdNameBalance(db: Database): Account[] {
+  const results: Account[] = db
+    .prepare(
+      `SELECT a.id                                                 AS id,
+           (SELECT GROUP_CONCAT(ordered_ancestor.name, ':')
+            FROM (SELECT account.name AS name
+                  FROM account_closure
+                           INNER JOIN account ON account.id = account_closure.ancestor_id
+                  WHERE descendant_id = a.id
+                  ORDER BY depth DESC) AS ordered_ancestor)     AS full_name,
+           (SELECT COALESCE(SUM(debit_credit_amount), 0)
+            FROM full_transaction_view ftv
+                 -- This WHERE clause consists of the IDs of the account and its descendants
+            WHERE ftv.account_id IN (SELECT descendant_id
+                                     FROM account_closure
+                                              INNER JOIN account ftv_a on ftv_a.id = account_closure.descendant_id
+                                     WHERE ancestor_id = a.id)) AS balance
+        FROM account a
+        ORDER BY full_name;`
+    )
+    .all();
+
+  return results;
 }

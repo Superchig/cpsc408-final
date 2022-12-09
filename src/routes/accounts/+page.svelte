@@ -16,7 +16,8 @@
 
   let newAccount: Account = {
     id: undefined,
-    full_name: undefined
+    full_name: undefined,
+    balance: undefined
   };
 
   const onCreateClick = async (event: Event) => {
@@ -57,6 +58,9 @@
         <td class="border-gray-500 border-y-4 divide-x-gray-300 font-bold px-6 py-3 bg-blue-100"
           >Name</td
         >
+        <td class="border-gray-500 border-y-4 divide-x-gray-300 font-bold px-6 py-3 bg-blue-100">
+          Balance
+        </td>
         <!-- Invisible button column: -->
         <td />
       </tr>
@@ -97,18 +101,24 @@
               </div>
             </div>
           </td>
+          <td class="border border-y-4 px-6 py-3 text-right">{account.balance}</td>
           <td class="px-2" />
         </tr>
       {/each}
       <tr>
         <td class="border border-y-4 px-6 py-3">TBD</td>
         <td class="border border-y-4 px-4 py-3">
-          <TextInput bind:value={newAccount.full_name} on:keydown={(event) => {
-            if (event.key === "Enter") {
-              onCreateClick(event);
-            }
-          }} class="px-3 py-2" />
+          <TextInput
+            bind:value={newAccount.full_name}
+            on:keydown={(event) => {
+              if (event.key === 'Enter') {
+                onCreateClick(event);
+              }
+            }}
+            class="px-3 py-2"
+          />
         </td>
+        <td class="border border-y-4 px-6 py-3 text-right">TBD</td>
         <td class="p-2">
           <Button
             color={ButtonColor.Blue}

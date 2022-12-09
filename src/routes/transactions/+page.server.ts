@@ -1,12 +1,12 @@
-import type { Actions, PageServerLoad } from './$types';
+import type { PageServerLoad } from './$types';
 import { getDB } from '$lib/server/db';
-import { findAllAccounts } from '$lib/server/accounts';
-import type { DebitCredit, Transaction } from '$lib/transaction';
+import { findAllAccountsIdName } from '$lib/server/accounts';
+import type { Transaction } from '$lib/transaction';
 
 export const load: PageServerLoad = async (event) => {
   const db = getDB();
 
-  const accounts = findAllAccounts(db);
+  const accounts = findAllAccountsIdName(db);
 
   // Obtain relevant transactions
 
