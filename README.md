@@ -1,6 +1,12 @@
-# create-svelte
+# cpsc408-final
 
-## Developing
+- Christopher Chang
+- 2344338
+- chrichang@chapman.edu
+- CPSC 408-01
+- Final Project
+
+## Build / Running Instructions
 
 To run this locally, you need installed:
 - [`node`](https://nodejs.org/en/) (I used version 18.12.0, later versions
@@ -11,3 +17,14 @@ Once `node` is installed, you can run the project locally with:
 ```bash
 npm install # Install node-specific libraries, only need this once
 npm run dev # Start the server
+```
+
+## References
+
+- https://stackoverflow.com/questions/4967135/deleting-rows-from-sqlite-table-when-no-match-exists-in-another-table
+- https://www.sqlite.org/lang_returning.html
+- https://stackoverflow.com/questions/7939137/what-http-status-code-should-be-used-for-wrong-input
+- https://stackoverflow.com/questions/1897352/sqlite-group-concat-ordering
+- https://www.sqlitetutorial.net/sqlite-functions/sqlite-coalesce/
+- https://stackoverflow.com/questions/74020726/how-to-shutdown-gracefully-in-sveltekit
+- https://navillus.dev/blog/svelte-class-props
