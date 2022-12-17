@@ -26,7 +26,8 @@ npm run dev # Start the server
 ```
 
 The terminal should then tell you the project's local URL. It's usually
-http://localhost:5174.
+http://localhost:5174. Navigating to this URL in a browser will allow you to
+interact with the application.
 
 ## References
 
