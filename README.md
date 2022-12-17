@@ -25,6 +25,9 @@ npm install # Install node-specific libraries, only need this once
 npm run dev # Start the server
 ```
 
+The terminal should then tell you the project's local URL. It's usually
+http://localhost:5174.
+
 ## References
 
 - https://dirtsimple.org/2010/11/simplest-way-to-do-tree-based-queries.html
