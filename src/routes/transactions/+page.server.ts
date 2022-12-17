@@ -62,7 +62,6 @@ export const load: PageServerLoad = async (event) => {
 
   // Create SQL query with variables for substitution
 
-  // FIXME(Chris): Use table view for triple-join here
   let sqlBeforeSubstitution = `SELECT financial_transaction.id AS transaction_id,
                                       financial_transaction.description AS transaction_description,
                                       financial_transaction.date AS transaction_date,
