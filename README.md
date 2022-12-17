@@ -6,6 +6,12 @@
 - CPSC 408-01
 - Final Project
 
+## Database Location
+
+We use sqlite, and our database is located in `database.db`.
+
+The SQl required to set up our database is in `schema.sql`.
+
 ## Build / Running Instructions
 
 To run this locally, you need installed:
