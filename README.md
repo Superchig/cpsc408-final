@@ -21,10 +21,10 @@ npm run dev # Start the server
 
 ## References
 
-- https://stackoverflow.com/questions/4967135/deleting-rows-from-sqlite-table-when-no-match-exists-in-another-table
-- https://www.sqlite.org/lang_returning.html
-- https://stackoverflow.com/questions/7939137/what-http-status-code-should-be-used-for-wrong-input
-- https://stackoverflow.com/questions/1897352/sqlite-group-concat-ordering
-- https://www.sqlitetutorial.net/sqlite-functions/sqlite-coalesce/
-- https://stackoverflow.com/questions/74020726/how-to-shutdown-gracefully-in-sveltekit
 - https://navillus.dev/blog/svelte-class-props
+- https://stackoverflow.com/questions/1897352/sqlite-group-concat-ordering
+- https://stackoverflow.com/questions/4967135/deleting-rows-from-sqlite-table-when-no-match-exists-in-another-table
+- https://stackoverflow.com/questions/74020726/how-to-shutdown-gracefully-in-sveltekit
+- https://stackoverflow.com/questions/7939137/what-http-status-code-should-be-used-for-wrong-input
+- https://www.sqlite.org/lang_returning.html
+- https://www.sqlitetutorial.net/sqlite-functions/sqlite-coalesce/
