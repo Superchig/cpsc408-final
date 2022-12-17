@@ -17,6 +17,7 @@ export function findAllAccountsIdName(db: Database): Account[] {
                   WHERE descendant_id = a.id
                   ORDER BY depth DESC) AS ordered_ancestor) AS full_name
        FROM account a
+       GROUP BY id
        ORDER BY full_name;`
     )
     .all();
@@ -43,6 +44,7 @@ export function findAllAccountsIdNameBalance(db: Database): Account[] {
                                               INNER JOIN account ftv_a on ftv_a.id = account_closure.descendant_id
                                      WHERE ancestor_id = a.id)) AS balance
         FROM account a
+        GROUP BY id
         ORDER BY full_name;`
     )
     .all();
