@@ -21,6 +21,7 @@ npm run dev # Start the server
 
 ## References
 
+- https://dirtsimple.org/2010/11/simplest-way-to-do-tree-based-queries.html
 - https://navillus.dev/blog/svelte-class-props
 - https://stackoverflow.com/questions/1897352/sqlite-group-concat-ordering
 - https://stackoverflow.com/questions/4967135/deleting-rows-from-sqlite-table-when-no-match-exists-in-another-table

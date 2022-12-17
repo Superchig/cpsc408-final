@@ -7,6 +7,9 @@ export function findAllAccountsIdName(db: Database): Account[] {
   // However, SQLite does not guarantee the order of concatenated elements when using
   // GROUP_CONCAT, so we need to use this sub-query within a sub-query.
   // https://stackoverflow.com/questions/1897352/sqlite-group-concat-ordering
+  // Using the closure table will allow us to quickly find all of the anestors of
+  // an account without using a recursive query
+  // https://dirtsimple.org/2010/11/simplest-way-to-do-tree-based-queries.html
   const results: Account[] = db
     .prepare(
       `SELECT a.id,
